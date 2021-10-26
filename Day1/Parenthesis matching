@@ -1,0 +1,44 @@
+bool ispar(string x)
+    {
+        //Approach:if we encounter a closing bracket it must match with the last encountered open bracket
+        //Time:O(length of string).
+        //Space: O(No. of open braces).
+        
+        stack<char>st;//stack for maintaing all current active open braces
+        for(int i=0;i<x.length();i++)
+        {
+            //pushing the caracter if its open parenthesis
+            if(x[i]=='['||x[i]=='{'||x[i]=='(')
+            st.push(x[i]);
+            
+            //if ')' has been encountered then the latest encountered open brace should be '(' 
+            // which is at top of stack else its invalid
+            if(x[i]==']')
+            {
+                if(!st.empty()&&st.top()=='[')//if "!st.empty()" is not added it fails for case x="]]]"
+                st.pop();//since open and close brace were matched we remove it
+                else return false;
+                
+            }
+            //similarly if we are at ')' then top of stack should be '(' else string is invalid
+            if(x[i]==')')
+            {
+                if(!st.empty()&&st.top()=='(')
+                st.pop();
+                else return false;
+                
+            }
+            if(x[i]=='}')
+            {
+                if(!st.empty()&&st.top()=='{')
+                st.pop();
+                else return false;
+                
+            }
+                
+        
+            
+        }
+        if(st.empty()) return true;//if we donot check this condition it fails for for x="{{{"
+        return false;
+    }
