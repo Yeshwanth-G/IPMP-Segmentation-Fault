@@ -1,12 +1,30 @@
 bool hasArrayTwoCandidates(int arr[], int n, int x) {
-	    //approach 1: traversering array for each element to find sum-given element;Time:O(N^2),space:O(1)
+	    //Approach 1: traversering array for each element to find sum-given element;
 	   // for(int i=0;i<n;i++){
 	   //     for(int j=i;j<n;j++){
 	   //         if(arr[j]==x-arr[i])
 	   //         return true;
 	   //     }
 	   // }
-	   //Approch 2: using hashmap to search for sum-given element in constant time.Time:O(array length),space:O(n);
+//Time:O(n^2),space:O(1)
+---------------------------------------------------------------------------------------------------------
+	   //Two Pointer Aproach:sort the array,have two pinters at front and back and update them based on sum of the elements they are pointint to and the target_sum;
+	    sort(&arr[0],&arr[n]);//sorts in O(nlogn) time and O(1) space
+	    int front=0,back=n-1;
+	    while(back>front){
+	        
+	        if(arr[front]+arr[back]<x)
+	        front++;
+	        else
+	        if(arr[front]+arr[back]>x)
+	        back--;
+	        else return true;
+	        
+	    }
+	    return false;
+//Time Complexity:Dependds on sorting,for std::O(nlogn) space:depends on sorting method, for std::sort() it is O(1).
+--------------------------------------------------------------------------------------------------------
+	   //Approch 2: using hashmap to search for sum-given element in constant time.
 	    unordered_map<int,int>hmap;//searching complexity becomes O(1)-Hashing
 	    hmap[arr[0]]=0;
 	   for(int i=1;i<n;i++)
@@ -19,3 +37,4 @@ bool hasArrayTwoCandidates(int arr[], int n, int x) {
 	   
 	   return false;
 	}
+//Time:O(array length),space:O(n);
