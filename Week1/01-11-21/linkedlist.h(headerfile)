@@ -1,0 +1,108 @@
+#include<bits/stdc++.h>
+using namespace std;
+namespace llist{
+  struct node{
+      int data;
+      node* next;
+      node(int a){
+         data=a;next=nullptr;
+      }
+  };//structure fore each node in linked list;
+  class linkedlist{
+     public:
+      node* head;
+      linkedlist(){
+          head=NULL; 
+      }
+      void createlist(vector<int>v);
+      void printlist();
+      void insert(int data);
+      void deletenode(int pos);
+      int length();
+      bool search(int a);
+      void deletelist();
+   };//class to implement linkedlist
+}//using a simple namespace for this headerfile
+
+void llist::linkedlist::createlist(vector<int>v){
+    if(v.empty())return;
+   head=new node(v[0]);
+   node* prev=head;
+for(int i=1;i<v.size();i++){
+node* temp=new node(v[i]);
+prev->next=temp;
+prev=temp;
+}
+}//creates a new linked list with by taking a vector of elements.//Time,space:O(vector size)
+
+void llist::linkedlist::printlist()
+{   node*p=head;
+    while(p!=NULL){
+        cout<<p->data<<" ";
+        p=p->next;
+    }
+    cout<<endl;
+
+}//prints given sigular linked list;Time:O(no. of elements in list),space:O(1)
+
+
+void llist::linkedlist::insert(int data){
+    node*p=head;
+    while(p&&p->next!=NULL){
+        p=p->next;
+    }
+    node*temp=new node(data);
+    if(p!=NULL) p->next=temp;
+    else p=temp;
+}//inserts at the end of list:time:O(length of linkedlist),space:O(1)
+
+
+void llist::linkedlist::deletenode(int pos){
+    node*p=head;
+    pos--;
+for(int i=1;i<pos;i++)
+p=p->next;
+if(pos!=0){
+    node*temp=p->next;
+    p->next=p->next->next;
+    delete(temp);
+
+}
+else{
+    node*temp=head;
+    head=head->next;
+    delete(temp);
+    }
+}//deletes node at given position:time:O(n),space:O(1);
+
+
+int llist::linkedlist::length(){
+    int count=0;
+    node*p=head;
+    while(p!=NULL){
+        count++;
+        p=p->next;
+    }
+    return count;
+}//No. of elements in linkedlist,Time:O(n),space:O(1)
+
+bool llist::linkedlist::search(int a){
+    node*p=head;
+    while(p!=NULL&&p->data!=a){
+        p=p->next;
+    }
+    if(p==NULL) return false;
+    return true;
+}//searches for given integer:Time:O(n),space:O(1)
+
+void llist::linkedlist::deletelist(){
+node*prev=head;
+if(head!=NULL) head=head->next;
+while(head!=NULL){
+    delete(prev);
+    prev=head;
+    head=head->next;
+}
+delete(prev);
+head=NULL;
+}//deletes entire linkedlist:Time-O(n),space-O(1)
