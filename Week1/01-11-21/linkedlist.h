@@ -23,8 +23,8 @@ class linkedlist{
     int MiddleElement();
     void PrintRev();
     void reverse();
-};
-}//class to implement linkedlist
+void Print_Nth_Node_From_End(int n);
+};}//class to implement linkedlist
 void llist::linkedlist::createlist(vector<int>v){
     if(v.empty())return;
    head=new node(v[0]);
@@ -160,4 +160,25 @@ void llist::linkedlist::reverse(){//Time:O(n),space:O(1)
 
     }
     head=prev;
+}
+void llist::linkedlist::Print_Nth_Node_From_End(int n){
+     //Approach-0:get the length and traverse to get l-n+1 node from begining.Time:O(no. of nodes),space:O(1)
+    // int l=llist::linkedlist::length();
+    // node*p=head;
+    // if(n>l)return;
+    // for(int i=1;i<l-n+1;i++){
+    //     p=p->next;
+    // }
+    // cout<<p->data<<endl;
+    //Approach-1:First move a temp pointer by n nodes from begining and then start moving two pointers one from head by the time 
+    //temp pointer reaches end head pointer reaches l-n+1 node.Time:O(no. of nodes).
+    node*p=head,*temp=head;
+    for(int i=1;i<n;i++){
+        p=p->next;
+    }
+    while(p->next!=NULL){
+        p=p->next;
+        temp=temp->next;
+    }
+    cout<<temp->data<<endl;
 }

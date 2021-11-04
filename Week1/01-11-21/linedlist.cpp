@@ -22,6 +22,7 @@ l.PrintRev();
 l.reverse();
 cout<<"reversed list:";
 l.printlist();
+l.Print_Nth_Node_From_End(3);
 l.deletelist();//deletes entire list and makes head as NULL;
 return 0;
 }
