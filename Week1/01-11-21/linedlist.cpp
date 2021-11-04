@@ -23,6 +23,11 @@ l.reverse();
 cout<<"reversed list:";
 l.printlist();
 l.Print_Nth_Node_From_End(3);
+linkedlist l1,l2;
+l1.createlist({1,2});
+l2.createlist({1,3,2});
+l=l1*l2;
+l.printlist();
 l.deletelist();//deletes entire list and makes head as NULL;
 return 0;
 }

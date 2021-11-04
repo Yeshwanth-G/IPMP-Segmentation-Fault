@@ -9,18 +9,39 @@ struct node{
     }
 };//structure fore each node in linked list;
 class linkedlist{
-    public:
+public:
     node* head;
     linkedlist(){
-        head=nullptr;  }
+    head=nullptr;  }
+    linkedlist operator*(linkedlist l1){
+        //Traversing both linked lists simultanoesly and finding the equivalent numbers then multiply them and 
+        //construct a new linkedlist from the result.
+        int sum1=0,sum2=0;
+        node*p=this->head,*q=l1.head;
+        while(p!=NULL||q!=nullptr){
+        if(p!=NULL){ sum1=sum1*10+(p->data);
+        p=p->next;}
+        if(q!=NULL) {sum2=sum2*10+(q->data);
+        q=q->next;}
+    }
+        int sum=sum1*sum2;
+        linkedlist l2;
+        while(sum!=0){//constructing new linked list from sum1*sum2;
+            node*p=new node(sum%10);
+            p->next=l2.head;
+            l2.head=p;
+            sum=sum/10;
+        }
+        return l2;
+    }
     void createlist(vector<int>v);
     void printlist();
     void insert(int data);
     void deletenode(int pos);
-    int length();
+    int  length();
     bool search(int a);
     void deletelist();
-    int MiddleElement();
+    int  MiddleElement();
     void PrintRev();
     void reverse();
 void Print_Nth_Node_From_End(int n);
@@ -70,7 +91,7 @@ else{
     delete(temp);
     }
 }//deletes node at given position:time:O(n),space:O(1);
-int llist::linkedlist::length(){
+int  llist::linkedlist::length(){
     int count=0;
     node*p=head;
     while(p!=nullptr){
@@ -98,7 +119,7 @@ while(head!=nullptr){
 delete(prev);
 head=nullptr;
 }//deletes entire linkedlist:Time-O(n),space-O(1)
-int llist::linkedlist::MiddleElement(){
+int  llist::linkedlist::MiddleElement(){
     node*p=head;
 //Approach 1-Traverse the linked list for node at length/2 position;-Time:O(length),space-O(1)
 // for(int i=0;i<length()/2;i++){
