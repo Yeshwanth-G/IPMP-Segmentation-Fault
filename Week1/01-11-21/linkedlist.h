@@ -45,7 +45,9 @@ public:
     void PrintRev();
     void reverse();
 void Print_Nth_Node_From_End(int n);
+bool palindrome();
 };}//class to implement linkedlist
+
 void llist::linkedlist::createlist(vector<int>v){
     if(v.empty())return;
    head=new node(v[0]);
@@ -202,4 +204,54 @@ void llist::linkedlist::Print_Nth_Node_From_End(int n){
         temp=temp->next;
     }
     cout<<temp->data<<endl;
+}
+llist::node* reversehalf(llist::node*h){
+llist::node*prev=NULL,*current=h,*nextn;
+while(current){
+nextn=current->next;
+current->next=prev;
+prev=current;
+current=nextn;
+}
+h=prev;
+return h;
+}
+bool llist::linkedlist::palindrome(){
+// Approach-0: pushing all th e nodes into stack and then traversing stack to check if its palindrome:Time-O(n),space-O(n);
+// stack<node*>st;
+// node*t=head;
+// while(t!=NULL){
+//     st.push(t);
+//     t=t->next;
+// }
+// t=head;
+// while(!st.empty()){
+//     if(st.top()->data!=t->data)
+//     return false;
+//     st.pop();
+//     t=t->next;
+// }
+// return true;
+//Approach-1:Go to iddle element and reverse linkedlist from that node and then start comparing node values;Time:O(n),space-O(1)
+node*fast=head,*slow=head,*prev=head,*c=head;
+while(fast!=NULL&&fast->next!=NULL){
+    prev=slow;
+    slow=slow->next;
+    fast=fast->next->next;
+}
+if(fast!=NULL){
+    prev=slow;
+slow=slow->next;
+}
+slow=reversehalf(slow);
+prev->next=slow;
+while(slow!=NULL||c!=prev){
+if(c->data!=slow->data){
+    prev->next=reversehalf(prev->next);
+    return false;}
+c=c->next;
+slow=slow->next;
+}
+prev->next=reversehalf(prev->next);
+return true;
 }
