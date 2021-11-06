@@ -249,7 +249,7 @@ while(slow!=NULL||c!=prev){
 if(c->data!=slow->data){
     prev->next=reversehalf(prev->next);
     return false;}
-c=c->next;
+c=c->next;;
 slow=slow->next;
 }
 prev->next=reversehalf(prev->next);
