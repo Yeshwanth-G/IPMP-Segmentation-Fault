@@ -31,6 +31,7 @@ l.printlist();
 if(l.palindrome())cout<<"YES\n";
 else cout<<"NO\n";
 l.printlist();
+l.intersection(l1);
 l.deletelist();//deletes entire list and makes head as NULL;
 return 0;
 }

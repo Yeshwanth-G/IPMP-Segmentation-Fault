@@ -46,6 +46,7 @@ public:
     void reverse();
 void Print_Nth_Node_From_End(int n);
 bool palindrome();
+void intersection(linkedlist l2);
 };}//class to implement linkedlist
 
 void llist::linkedlist::createlist(vector<int>v){
@@ -123,7 +124,7 @@ head=nullptr;
 }//deletes entire linkedlist:Time-O(n),space-O(1)
 int  llist::linkedlist::MiddleElement(){
     node*p=head;
-//Approach 1-Traverse the linked list for node at length/2 position;-Time:O(length),space-O(1)
+    //Approach 1-Traverse the linked list for node at length/2 position;-Time:O(length),space-O(1)
 // for(int i=0;i<length()/2;i++){
 // p=p->next;
 // }
@@ -149,7 +150,7 @@ p=p->next;
 if(temp!=nullptr) return temp->data;
 return 0;
 }
-//Auxilary function for recursion purpose
+    //Auxilary function for recursion purpose
 void prev(llist::node*h){
     if(h!=nullptr){
         prev(h->next);
@@ -232,7 +233,7 @@ bool llist::linkedlist::palindrome(){
 //     t=t->next;
 // }
 // return true;
-//Approach-1:Go to iddle element and reverse linkedlist from that node and then start comparing node values;Time:O(n),space-O(1)
+//Approach-1:Go to middle element and reverse linkedlist from that node and then start comparing node values;Time:O(n),space-O(1)
 node*fast=head,*slow=head,*prev=head,*c=head;
 while(fast!=NULL&&fast->next!=NULL){
     prev=slow;
@@ -255,3 +256,57 @@ slow=slow->next;
 prev->next=reversehalf(prev->next);
 return true;
 }
+void llist::linkedlist::intersection(linkedlist l2){
+    //BruteForce:Traverse second linked list for each node in first linked list-Time:O(m*n),space-O(1)
+//     node*p=head,*q=l2.head;
+//     while(p!=NULL){
+//         while(q!=NULL){
+//             if(p==q){
+//             cout<<"Intersection at:"<<p->data<<endl;
+//             return;}
+//             q=q->next;
+//         }
+//         p=p->next;
+//     }
+// cout<<"Not Found!!\n";
+// --------------------------------------------------------------------------------------------------------
+//Approach-1:Calculate the length difference between two linked lists,then start both heads at same point and 
+// then traverse to find intersection point;-Time:O(n+m)as intially to find length we need to completely traverse both lists,space-O(1)
+// int len1=length();int len2=l2.length(),diff=0;
+// llist::node*p=head,*q=l2.head;
+// if(len1>len2)
+// {
+// for(int i=1;i<(len1-len2);i++){
+//     p=p->next;
+// }
+// }
+// else{
+// for(int i=1;i<(len2-len1);i++){
+//     q=q->next;
+// }
+// }
+// while(p!=NULL&&q!=NULL){
+//     if(p==q){
+//             cout<<"Intersection at:"<<p->data<<endl;
+//             return;}
+//     p=p->next;
+// q=q->next;
+// }
+// cout<<"Not Found!!\n";
+// --------------------------------------------------------------------------------
+//Aproach-2:keep on tarversing linked list until they are equal(both van be null also)..if one of pointer reaches null then point it back to head of other list
+//Time:O(m+n),space-O(1);
+node*p=head,*q=l2.head;
+while(p!=q){
+    if(p==NULL&&q!=NULL)p=l2.head;
+    else if(q==NULL&&p!=NULL)q=head;
+    else {p=p->next;
+    q=q->next;}
+}
+if(p!=NULL)
+cout<<"Intersection at:"<<p->data<<endl;
+else
+cout<<"Not Found!!"<<endl;
+}
+
+
