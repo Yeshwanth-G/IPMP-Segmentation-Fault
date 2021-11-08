@@ -46,7 +46,9 @@ public:
     void reverse();
 void Print_Nth_Node_From_End(int n);
 bool palindrome();
-void intersection(linkedlist l2);
+void intersection_node(linkedlist l2);
+linkedlist intersection(linkedlist l1);
+linkedlist Union(linkedlist l1);
 };}//class to implement linkedlist
 
 void llist::linkedlist::createlist(vector<int>v){
@@ -256,7 +258,7 @@ slow=slow->next;
 prev->next=reversehalf(prev->next);
 return true;
 }
-void llist::linkedlist::intersection(linkedlist l2){
+void llist::linkedlist::intersection_node(linkedlist l2){
     //BruteForce:Traverse second linked list for each node in first linked list-Time:O(m*n),space-O(1)
 //     node*p=head,*q=l2.head;
 //     while(p!=NULL){
@@ -308,5 +310,99 @@ cout<<"Intersection at:"<<p->data<<endl;
 else
 cout<<"Not Found!!"<<endl;
 }
+llist::linkedlist llist::linkedlist::Union(linkedlist l1){
+//Approach-0:travere a linked list and for each element check its already present else insert it-Time:O(n*m),space-O(1);;
+// linkedlist l2;
+// l2.head=new node(head->data);
+// node*p=NULL,*q;
+// bool present;
+// if(head!=NULL)p=head->next;
+// while(p!=NULL){
+//     present =false;
+//     q=l2.head;
+//     while(q!=NULL){
+//         if(p->data==q->data)
+//         present=true;
+//         q=q->next;
+//     }
+//     if(present==false){
+//         node*temp=new node(p->data);
+// temp->next=l2.head;
+// l2.head=temp;
+//     }
+// p=p->next;
+// }
+// p=l1.head;
+// while(p!=NULL){
+//     present =false;
+//     q=l2.head;
+//     while(q!=NULL){
+//         if(p->data==q->data)
+//         present=true;
+//         q=q->next;
+//     }
+//     if(present==false){
+//         node*temp=new node(p->data);
+// temp->next=l2.head;
+// l2.head=temp;
+//     }
+//     p=p->next;
+// }
+// return l2;
+//Approach-1:Traverse a linkedlist push all its elements into hashmap,then traverse other 
+// linked list and insert the union elements into the new list to be returned-Time-O(m+n),space-O(m);;
+unordered_map<int,int>hmap;
+node*p=head,*q=l1.head;
+linkedlist answer;
+while(p!=NULL){
+    if(hmap.empty()||hmap.find(p->data)==hmap.end()){
+     node*temp=new node(p->data);
+     temp->next=answer.head;
+     answer.head=temp;
+     hmap[p->data];
+    }
+p=p->next;
+}
+while(q!=NULL){
+   if(hmap.empty()||hmap.find(q->data)==hmap.end()){
+     node*temp=new node(q->data);
+     temp->next=answer.head;
+     answer.head=temp;
+     hmap[q->data];
+    }
+q=q->next;
+}
+return answer;
+}
+llist::linkedlist llist::linkedlist::intersection(linkedlist l1){
+//Approach-1:We can follow same approches as we did for union,we can insert element to result
+// linked list is its present in our running hashmap-Time-O(m+n),space-O(m);
+unordered_map<int,int>hmap;
+node*p=head,*q=l1.head;
+linkedlist answer;
+while(p!=NULL){
+    hmap[p->data];
+    p=p->next;
+}
+while(q!=NULL){
+    if(hmap.find(q->data)!=hmap.end()){
+     node*temp=new node(q->data);
+     temp->next=answer.head;
+     answer.head=temp;
+    }
+    q=q->next;
+}
+return answer;
+}
+
+
+
+
+
+
+
+
+
+
 
 
