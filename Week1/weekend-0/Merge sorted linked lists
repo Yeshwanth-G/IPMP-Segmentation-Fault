@@ -1,0 +1,47 @@
+ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+// Approach 0:compare first nodes of both list and append the //minimum to the result node and move the pointers,finally //check which pointer is not null and append it to result node //simply.
+//-Time:O(m+n),space-O(m+n).
+//    ListNode*tail=NULL,*root=NULL;
+//     while(l1!=nullptr&&l2!=nullptr){
+//     if(l1->val>l2->val){
+//     ListNode*temp=new ListNode(l2->val);
+//         if(tail!=NULL)tail->next=temp;
+//         if(root==NULL)root=tail;
+//         tail=temp;
+//         l2=l2->next;
+//     } 
+//     else{
+//         ListNode*temp=new ListNode(l1->val);
+//         if(tail!=NULL)tail->next=temp;
+//         if(root==NULL)root=tail;
+//         tail=temp;
+//         l1=l1->next;
+//     }
+//     }
+//     if(l1!=NULL){
+//         if(tail==nullptr)tail=l1;
+//         else tail->next=l1;
+//         if(root==NULL)root=tail;
+//     }
+//     if(l2!=NULL){
+//         if(tail==NULL)tail=l2;
+//         else
+//         tail->next=l2;
+//         if(root==NULL)root=tail;
+
+//     }
+//         return root;
+//using Recursion each iteration would return minimum of heads //of both list,basically all nodes will get inserted at //appropriate places.Time-O(m+n),space-O(m+n)-recursion stack
+
+    if(l1 == NULL) return l2;
+    if(l2 == NULL) return l1;
+        
+    if(l1->val < l2->val) {
+            l1->next = mergeTwoLists(l1->next, l2);
+            return l1;
+        } else {
+            l2->next = mergeTwoLists(l1, l2->next);
+            return l2;
+        }
+    
+    }
