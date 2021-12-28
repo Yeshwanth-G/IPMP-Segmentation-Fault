@@ -1,0 +1,45 @@
+Approach:Break the array into two halfs at middle at sort each part and merge them again;
+class Solution {
+public:
+    vector<int> sortArray(vector<int>& nums) {
+        mergesort(nums,0,nums.size()-1);
+        return nums;
+    }
+    void mergesort(vector<int>&nums,int l,int h){
+         if(l<h){
+             int mid=(l+h)/2;
+             mergesort(nums,l,mid);
+             mergesort(nums,mid+1,h);
+             merge(nums,l,mid,h);
+         }
+    }
+    //Function to merge to sorted parts of array nums  from l to mid and mid+1 to h into a single array;
+   void merge(vector<int>&nums,int l,int mid,int h){
+       vector<int>b=nums;
+       int i=l;
+       int j=mid+1;
+       int k=l;
+       while(i<mid+1&&j<h+1){
+           if(nums[i]<nums[j]){
+               b[k++]=nums[i++];
+           }
+           else if(nums[j]<nums[i]){
+               b[k++]=nums[j++];
+           }
+           else{
+               b[k++]=nums[i++];
+               b[k++]=nums[j++];
+           }
+       }
+       while(i<mid+1){
+           b[k++]=nums[i++];
+       }
+       while(j<h+1){
+           b[k++]=nums[j++];
+       }
+       nums=b;
+       
+   }
+};
+TimeComplexity-O(nlogn)-in best,worst,avg cases;
+space-O(n);
