@@ -1,0 +1,95 @@
+//Approach:divide the list into two halfs at the middle,sort each half and then merge both halfs
+//Time:O(nlogn);
+//Space:O(nlogn)-as merge will get called logn times and each time a new auxilary list is being created;
+class Solution {
+public:
+    ListNode* sortList(ListNode* head) {
+        ListNode*p=head;
+    if(head==NULL||head->next==NULL)return head;
+        while(p->next!=NULL){
+            p=p->next;
+        }
+         return mergesort(head,p);
+    }
+    ListNode*mergesort(ListNode*head,ListNode*end){
+        ListNode*temp=head;
+        if(head!=end){
+            ListNode*mid=find_mid(head);
+            ListNode*q=mid->next;
+            if(mid!=NULL)mid->next=NULL;
+            ListNode*a=mergesort(head,mid);
+            ListNode*b=mergesort(q,end);
+            temp=merge(a,b);
+        }
+        return temp;
+    }
+    ListNode*find_mid(ListNode*head){
+        ListNode*fast=head,*slow=head;
+        while(fast&&fast->next&&fast->next->next){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        return slow;
+        
+    }
+    ListNode* merge(ListNode*head1,ListNode*head2){
+        ListNode*th=NULL,*pr=NULL;
+        while(head1!=NULL&&head2!=NULL){
+            if(head1->val<head2->val){
+                ListNode*newn=new ListNode(head1->val);
+                if(th==NULL){
+                    th=newn;
+                    pr=newn;
+                }
+                else{
+                    pr->next=newn;
+                    pr=newn;
+                }
+                head1=head1->next;
+            }
+            else{
+                ListNode*newn=new ListNode(head2->val);
+                if(th==NULL){
+                    th=newn;
+                    pr=newn;
+                }
+                else{
+                    pr->next=newn;
+                    pr=newn;
+                }
+                head2=head2->next;
+            }
+        }
+        while(head1!=NULL){
+            ListNode*newn=new ListNode(head1->val);
+                if(th==NULL){
+                    th=newn;
+                    pr=newn;
+                }
+                else{
+                    pr->next=newn;
+                    pr=newn;
+                }
+                head1=head1->next;
+            
+        }
+        while(head2!=NULL){
+            ListNode*newn=new ListNode(head2->val);
+                if(th==NULL){
+                    th=newn;
+                    pr=newn;
+                }
+                else{
+                    pr->next=newn;
+                    pr=newn;
+                }
+                head2=head2->next;
+            
+        }
+        return th;
+        
+        
+        }
+    
+    
+};
