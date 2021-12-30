@@ -42,4 +42,4 @@ public:
    }
 };
 TimeComplexity-O(nlogn)-in best,worst,avg cases;
-space-O(n);
+space-O(nlogn);
