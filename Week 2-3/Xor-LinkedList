@@ -1,0 +1,122 @@
+#include <bits/stdc++.h>
+using namespace std;
+struct node
+{
+	int data;
+	node *npx;
+	node(int d)
+	{
+		this->npx = NULL;
+		data = d;
+	}
+};
+node *Xor(node *a, node *b)//Auxilary function to find Xor of two adresses given-O(1)
+{
+	return (node *)((long long)(a) ^ (long long)(b));
+}
+node *insertb(node *h, int d)//Inserts Before head-O(1)
+{
+	node *q = new node(d);
+	q->npx = h;
+	if (h != NULL)
+		h->npx = Xor(q, h->npx);
+	h = q;
+	return h;
+}
+void printlist(node *h)//Print list left to right-O(n)
+{
+	node *current = h, *prev = NULL, *nxt = h;
+	while (current != NULL)
+	{
+		cout << current->data << " ";
+		nxt = Xor(prev, current->npx);
+		prev = current;
+		current = nxt;
+	}
+	cout << endl;
+}
+void printrev(node *h)//Print list right to left-O(2n)
+{
+	node *current = h, *prev = NULL, *nxt;
+	while (current != NULL)
+	{
+		nxt = Xor(prev, current->npx);
+		prev = current;
+		current = nxt;
+	}
+	current = prev;
+	nxt = NULL;
+	while (current != NULL)
+	{
+		cout << current->data << " ";
+		prev = Xor(nxt, current->npx);
+		nxt = current;
+		current = prev;
+	}
+	cout << endl;
+}
+node *inserta(node *h, int d)//Insert at end of list-O(n)
+{
+	node *current = h, *prev = NULL, *nxt;
+	while (current != NULL)
+	{
+		nxt = Xor(prev, current->npx);
+		prev = current;
+		current = nxt;
+	}
+	node *p = new node(d);
+	p->npx = prev;
+	if (prev != NULL)
+		prev->npx = Xor(p, prev->npx);
+	else
+		h = p;
+	return h;
+}
+node *insertaf(node *h, node *p, int d)//Insert after given node-O(n)
+{
+	node *current = h, *prev = NULL, *nxt;
+	while (current != p)
+	{
+		nxt = Xor(prev, current->npx);
+		prev = current;
+		current = nxt;
+	}
+	node *q = new node(d);
+	node *temp = Xor(prev, current->npx);
+	q->npx = Xor(p, temp);
+	p->npx = Xor(q, prev);
+	if (temp != NULL)
+	{
+		node *tempn = Xor(p, temp->npx);
+		temp->npx = Xor(tempn, q);
+	}
+	return h;
+}
+node *deleten(node *h, node *p)//Delete the node after given node-O(n)
+{
+	node *current = h, *prev = NULL, *nxt;
+	while (current != p)
+	{
+		nxt = Xor(prev, current->npx);
+		prev = current;
+		current = nxt;
+	}
+	node*temp=Xor(current->npx,prev);
+	node*q=Xor(temp->npx,current);
+	q->npx=Xor(Xor(temp,q->npx),current);
+	current->npx=Xor(prev,q);
+	free(temp);
+	return h;
+}
+int main()
+{
+	node *h = insertb(NULL, 3);
+	h = insertb(h, 5);
+	h = insertb(h, 7);
+	h = inserta(h, 8);
+	h = insertaf(h, h->npx, 12);
+	h=deleten(h, h->npx);
+	printlist(h);
+	printrev(h);
+	return 0;
+}
