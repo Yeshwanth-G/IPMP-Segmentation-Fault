@@ -1,0 +1,161 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+int* bubblesort(int arr[],int n){
+    int flag,temp;
+    for(int i=0;i<n-1;i++){
+     flag=0;
+    for(int j=1;j<n-i;j++){
+        if(arr[j-1]>arr[j]){
+        temp = arr[j-1];
+        arr[j-1]=arr[j];
+        arr[j]=temp;
+        flag=1;
+        }
+    }
+    if(flag==0)break;
+}
+return arr;
+}//O(n^2),O(n)
+int*selectionsort(int*arr,int n){
+    int min,min_ind,temp;
+    for(int i=0;i<n-1;i++){
+        min=arr[i];
+        min_ind=i;
+        for(int j=i+1;j<n;j++){
+            if(arr[j]<min){
+                min=arr[j];
+                min_ind=j;
+            }
+        }
+        temp=arr[i];
+        arr[i]=arr[min_ind];
+        arr[min_ind]=temp;
+    }
+    return arr;
+}//O(n^2),O(n^2)
+int*insertionsort(int*arr,int n){
+    int key,j=0;
+    for(int i=1;i<n;i++){
+    key=arr[i];
+    j=i-1;
+    while(j>=0&&arr[j]>key){
+         arr[j+1]=arr[j];
+         j--;
+    }
+arr[j+1]=key;    
+    }
+    return arr;
+}//O(n^2),O(n);
+//---------------------------QuickSort-------------------------------
+// Time:
+// =>best case:when array can be uniformly divided into halves-o(nlogn)
+// =>worst case:already sorted array-O(n^2).
+// Space Complexity:
+// =>O(n)-recursion stack.
+    int partion(int*nums,int l,int h){
+        int i=l;
+        int j=h;
+        while(i<j){
+        while(i<h&&nums[i]<=nums[l]){
+            i++;
+        }
+        while(j>=0&&nums[j]>nums[l]){
+            j--;
+        }
+        if(i<j){
+            swap(nums[i],nums[j]);
+        }
+        }
+        swap(nums[l],nums[j]);
+        return j;
+    }
+    void quicksort(int*nums,int l,int h){
+         if(l<h){
+             int pivot=partion(nums,l,h);
+             quicksort(nums,l,pivot-1);
+             quicksort(nums,pivot+1,h);
+         }
+    }
+int* QuickSort(int*nums,int n) {
+        quicksort(nums,0,n-1);
+        return nums;
+    }
+//-------------------------------------------
+//-----------------------------------MergeSort---------------------------------------------
+// TimeComplexity-O(nlogn)-in best,worst,avg cases;
+// space-O(n);
+  void merge(vector<int>&nums,int l,int mid,int h){
+       vector<int>b=nums;
+       int i=l;
+       int j=mid+1;
+       int k=l;
+       while(i<mid+1&&j<h+1){
+           if(nums[i]<nums[j]){
+               b[k++]=nums[i++];
+           }
+           else if(nums[j]<nums[i]){
+               b[k++]=nums[j++];
+           }
+           else{
+               b[k++]=nums[i++];
+               b[k++]=nums[j++];
+           }
+       }
+       while(i<mid+1){
+           b[k++]=nums[i++];
+       }
+       while(j<h+1){
+           b[k++]=nums[j++];
+       }
+       nums=b;
+       
+   }
+//Function to merge to sorted parts of array nums  from l to mid and mid+1 to h into a single array;
+
+void mergesort(vector<int>&nums,int l,int h){
+         if(l<h){
+             int mid=(l+h)/2;
+             mergesort(nums,l,mid);
+             mergesort(nums,mid+1,h);
+             merge(nums,l,mid,h);
+         }
+    }
+
+vector<int> MergeSort(vector<int>& nums) {
+        mergesort(nums,0,nums.size()-1);
+        return nums;
+    }
+ //----------------------------------------------------------------------------
+int main(){
+int arr[5]={5,4,7,2,1};
+int n=5,*temp,flag;
+temp=bubblesort(arr,n);
+for(int i=0;i<n;i++)
+printf("%d,",temp[i]);
+printf("\n");
+
+temp=selectionsort(arr,n);
+for(int i=0;i<n;i++)
+printf("%d,",temp[i]);
+printf("\n");
+
+temp=insertionsort(arr,n);
+for(int i=0;i<n;i++)
+printf("%d,",temp[i]);
+printf("\n");
+
+temp=QuickSort(arr,n);
+for(int i=0;i<n;i++)
+printf("%d,",temp[i]);
+printf("\n");
+
+vector<int>v={7,5,3,2,8};
+v=MergeSort(v);
+for(int i=0;i<v.size();i++)
+printf("%d,",v[i]);
+printf("\n");
+
+return 0;
+}
