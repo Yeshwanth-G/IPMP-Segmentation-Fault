@@ -26,7 +26,8 @@ int twosum(int a[], int p, int n, int x)
             if (hmap.empty() || hmap.find(x - a[i]) == hmap.end())
                 hmap[a[i]];
             else
-                return 1;
+            {cout<<a[i]<<" "<<x-a[i];
+                return a[i];}
         }
     }
     return 0;
@@ -37,13 +38,15 @@ int triplet(int A[], int n, int X)
     //Complexity:O(n^2),O(1)-for two pointer approach or O(n^2),O(n)-using hashmap
     for (int i = 0; i < n; i++)
     {
-        if (twosum(A, i, n, X - A[i]))
-            return 1;
+        if (twosum(A, i, n, X - A[i])){
+            cout<<A[i]<<" ";
+            return 1;}
     }
+    cout<<"NO PAIR EXISTS";
     return 0;
 }
 int main()
-{
-
+{  int arr[5]={1,2,3,4,5};
+     triplet(arr,5,6);
     return 0;
 }
