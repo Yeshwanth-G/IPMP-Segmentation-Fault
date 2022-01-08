@@ -1,0 +1,10 @@
+void rotate(vector<int>& nums, int k) {
+    //Approach 1:Rotate the array from n-k index to n-1 index and also rote the part of array from 0 index to n-k-1 index and then rotate the entire array we will be left with the required rotated array;
+//O(n),O(1) time;
+        int n=nums.size();
+        k=k%n;
+    reverse(nums.begin(),nums.begin()+n-k);
+    reverse(nums.begin()+n-k,nums.end());
+        reverse(nums.begin(),nums.end());
+    }
+   
