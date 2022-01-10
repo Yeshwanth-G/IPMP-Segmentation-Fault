@@ -1,6 +1,7 @@
 class Solution {
 public:
  //Approach:sort the array and keep a count of ech element and return the ones whose count is more than n/2;
+ //O(nlogn),O(1)
     int majorityElement(vector<int>& nums) {
         sort(nums.begin(),nums.end());
         int n=nums.size();
