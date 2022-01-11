@@ -1,0 +1,33 @@
+//Approach :
+//convert number to string,and iterate from backwards to find pair where next element is more than previous one(call the previous element as d) 
+//once that is found traverse the string to find elemt that is just greater than d and swap it will d and reverse the string after d;
+//Time:O(n),space:O(1)
+class Solution {
+public:
+    int nextGreaterElement(int n) {
+        string s;
+        int b=0;
+        int p=n;
+        while(n>0){
+            int d=n%10;
+            char c='0'+d;
+            s=c+s;
+            if(b==0&&s.length()>1&&s[0]<s[1]){
+                int c=0;
+                for(int i=1;i<s.length();i++){
+                    if(s[i]>s[0])c=i;
+                }
+                swap(s[0],s[c]);
+                reverse(s.begin()+1,s.end());
+                b=1;
+            }
+            n=n/10;
+        }
+        long long sum=0;
+        for(int i=0;i<s.length();i++){
+            sum=(10*(sum))+(s[i]-'0');
+        }
+        if(sum==p||sum>INT_MAX)return -1;
+        return sum;
+    }
+};
