@@ -1,0 +1,14 @@
+class Solution {
+//Approach : Traverse the array and maintain a minimum so far for each element 
+//and then that minimum so far will be the buying day and current day will be selling one,so at each element calculate profit and find maximum profit;
+//O(n),O(1);
+public:
+    int maxProfit(vector<int>& p) {
+        int minsofar=p[0],maxp=0;
+        for(int i=1;i<p.size();i++){
+            if(p[i]<minsofar)minsofar=p[i];
+            if((p[i]-minsofar)>maxp)maxp=p[i]-minsofar;
+        }
+        return maxp;
+    }
+};
