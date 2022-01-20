@@ -1,0 +1,39 @@
+class Solution {
+public:
+//Approach:store all elements and thier frequencies in hashmap and then iterate string to find the first character with frequency 1;
+//Time:O(n),space:O(n)==>at max O(256)
+    int firstUniqChar(string s) {
+        unordered_map<char,int>hmap;
+        for(int i=0;i<s.length();i++){
+            hmap[s[i]]++;
+        }
+        for(int i=0;i<s.length();i++){
+            if(hmap[s[i]]==1)return i;
+        }
+        return -1;
+    }
+};
+
+class Solution {
+public:
+//Approach : Make count array of length 256 and iterate string and whwn you first find character make count[s[i]]=i and second time when you find it make that as -2;
+//again traverse the count array and find minimum among positive elements in it;
+//O(n+256),space:O(256)==>O(1);
+    int firstUniqChar(string s) {
+vector<int>count(256,-1);
+        for(int i=0;i<s.length();i++){
+         if(count[s[i]]==-1)count[s[i]]=i;
+            else
+            if(count[s[i]]>=0)count[s[i]]=-2;
+        }
+        int min=s.length();
+        for(int i=0;i<256;i++){
+            if(count[i]>=0){
+                if(count[i]<min)min=count[i];
+            }
+        }
+        if(min==s.length())
+        return -1;
+        return min;
+    }
+};
