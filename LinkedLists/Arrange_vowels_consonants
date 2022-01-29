@@ -1,0 +1,33 @@
+bool vowel(char c){
+    if(c=='a'||c=='e'||c=='i'||c=='o'||c=='u')return true;
+    return false;
+}
+struct Node* arrange(Node *head)
+{
+   //Code here
+   Node*q=head,*e=NULL;
+   while(q!=NULL&&q->next&&vowel(q->data)){
+       e=q;
+       q=q->next;
+   }
+   Node*p=q;
+   while(p!=NULL&&p->next){
+       if(vowel(p->next->data))
+       {
+        Node*s=p->next;
+        p->next=p->next->next;
+        if(e!=NULL){
+            s->next=e->next;
+            e->next=s;
+        }
+        else {
+            s->next=head;
+            head=s;
+        }
+       e=s;
+       }
+       else
+       p=p->next;
+   }
+   return head;
+}
