@@ -1,0 +1,26 @@
+
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        ListNode*p=head;
+        int count=0,k=0;
+        while(p!=NULL&&p->next){
+            p=p->next;
+           k++;
+        }
+        ListNode*t=p;
+        p=head;
+        while(count<k){
+          ListNode*s=p->next;
+            if(s->next){
+            p->next=p->next->next;
+            t->next=s;
+            s->next=NULL;
+            t=s;
+            }
+            p=p->next;
+            count+=2;
+        }
+        return head;
+    }
+};
