@@ -1,0 +1,49 @@
+class Solution
+{
+    public:
+    Node* segregate(Node *head) {
+        Node*p=head,*r=head;
+        int count=0,k;
+        while(p&&p->next){
+            p=p->next;
+            count++;
+        }
+        k=count;
+        count=0;
+        Node*tail=p,*t=p;
+        p=head;
+      while(count<k){
+      if(p->next->data==0){
+          Node*s=p->next;
+          p->next=p->next->next;
+          s->next=head;
+          head=s;
+      }
+      else if(p->next->data==2){
+          Node*s=p->next;
+          p->next=p->next->next;//1 2 1
+          s->next=NULL;
+          t->next=s;
+          t=s;
+      }
+      else p=p->next;
+      count++;
+  }
+  if(r->data==0){
+      swap(r->data,r->next->data);
+      Node*tr=r->next;
+      r->next=r->next->next;
+      tr->next=head;
+      head=tr;
+  }
+  else if(r->data==2){
+      swap(r->data,r->next->data);
+      Node*tr=r->next;
+      r->next=r->next->next;
+      tr->next=NULL;
+      t->next=tr;
+      t=tr;
+  }
+  return head;
+    }
+};
