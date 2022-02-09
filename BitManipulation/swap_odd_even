@@ -1,0 +1,10 @@
+ public:
+    //Function to swap odd and even bits.
+    unsigned int swapBits(unsigned int n)
+    {
+    	unsigned int q=n<<1;
+    	unsigned int p=n>>1;
+    	p=((p)&(0x55555555));
+    	q=((q)&(0xaaaaaaaa));
+    	return (p|q);
+    }
