@@ -1,0 +1,11 @@
+ vector <int> rotate (int n, int d)
+        {
+            vector<int>v;
+           d=d%16;
+           unsigned short p=(unsigned short)n;
+           unsigned short b=(p>>d)|(p<<(16-d));
+           unsigned short a=(p<<d)|(p>>(16-d));
+           v.push_back(a);
+           v.push_back(b);
+           return v;
+        }
