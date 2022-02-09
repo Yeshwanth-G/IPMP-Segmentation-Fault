@@ -1,0 +1,18 @@
+class Solution {
+public:
+    bool isPowerOfTwo(int n) {
+        if(n==0)return false;
+        long long x=n&((long long)n-1);
+        return x==0;
+    }
+};
+
+
+class Solution {
+public:
+    bool isPowerOfTwo(int n) {
+        if(n==0)return false;
+        long long x=n&~((long long)n-1);
+        return x==n;
+    }
+};
