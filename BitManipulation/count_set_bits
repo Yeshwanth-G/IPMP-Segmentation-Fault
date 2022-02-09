@@ -1,0 +1,9 @@
+int setBits(int N) {
+        int count=0,n=N;
+        while(n>0){
+            count+=n%2;
+            n=n>>1;
+        }
+        return count;
+        // Write Your Code here
+    }
