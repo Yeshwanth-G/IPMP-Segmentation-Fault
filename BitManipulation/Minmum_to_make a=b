@@ -1,0 +1,11 @@
+int countBitsFlip(int a, int b){
+        if(a==b)return 0;
+        int count=0;
+        while(a>0||b>0){
+            if(a%2!=b%2)count++;
+            a=a>>1;
+            b=b>>1;
+        }
+        return count;
+        
+    }
