@@ -1,0 +1,76 @@
+PostOrder:
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int>ans;
+        stack<TreeNode*>st;
+        vector<int>v;
+        if(root==NULL)return v;
+          st.push(root);
+        while(!st.empty()){
+            TreeNode*p=st.top();
+            st.pop();
+            v.push_back(p->val);
+            if(p->left)st.push(p->left);
+            if(p->right)st.push(p->right);
+        }
+        reverse(v.begin(),v.end());
+        return v;
+        
+    }
+};//O(n),O(n)==>using two stacks;
+
+PreOrder:
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int>v;
+        stack<TreeNode*>st;
+        if(root==NULL)return v;
+        v.push_back(root->val);
+        st.push(root);
+        root=root->left;
+        while(!st.empty()||root!=NULL){
+            TreeNode*p=root;
+            while(p!=NULL){
+                v.push_back(p->val);
+                st.push(p);
+                p=p->left;
+            }
+            if(!st.empty()){
+              root=st.top()->right;
+                st.pop();
+            }
+        }
+        return v;
+    }
+};//O(n),O(logn)or O(h);
+
+
+Inorder:
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int>v;
+        stack<TreeNode*>st;
+        if(root==NULL)return v;
+        st.push(root);
+        root=root->left;
+        while(!st.empty()||root!=NULL){
+            TreeNode*p=root;
+            while(p!=NULL){
+                st.push(p);
+                p=p->left;
+            }
+            if(!st.empty()){
+            v.push_back(st.top()->val);
+            root=st.top()->right;
+            st.pop();}
+        }
+        return v;
+    }
+    
+};//O(n),O(h)or O(logn);
+Note:In space complexity vector is not counted;
+
+//Even for recursive space=O(h),time=O(n);;;;;;;
