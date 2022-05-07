@@ -1,0 +1,15 @@
+//Given a bst replace a node vlaue with sum of all elelements greater than given number;
+//DFS*******O(N).
+void answer(Node*root,int& cursum){
+    if(root==nullptr)return;
+    answer(root->right,cursum);
+    cursum+=root->data;
+    root->data=cursum;
+    answer(root->left,cursum);
+}
+Node* modify(Node *root)
+{
+    int cursum=0;
+    answer(root,cursum);
+    return root;
+}
