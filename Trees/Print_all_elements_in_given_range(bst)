@@ -1,0 +1,13 @@
+//Simple inorder traversal and print all elements in given range;
+  void inorder(Node*root,int low,int high,vector<int>&v){
+      if(root==nullptr)return;
+        inorder(root->left,low,high,v);
+        if(root->data>=low&&root->data<=high)v.push_back(root->data);
+        inorder(root->right,low,high,v);
+
+  }
+    vector<int> printNearNodes(Node *root, int low, int high) {
+        vector<int>v;
+        inorder(root,low,high,v);
+        return v;
+    }
