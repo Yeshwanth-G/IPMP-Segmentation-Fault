@@ -1,0 +1,30 @@
+find first non full node and after that all nodes should be leaves;
+------------------------------------------------------
+int isfull(Node*root){
+        if(root==nullptr)return true;
+        return root->left!=nullptr&&root->right!=nullptr;
+    }
+    bool isCompleteBT(Node* root){
+        queue<Node*>q;
+        if(root==nullptr)return true;
+        q.push(root);
+        while(!q.empty()){
+            int s=q.size();
+                for(int i=0;i<s;i++){
+                   Node*p=q.front();
+                    if(p->left)q.push(p->left);
+                    if(p->right)q.push(p->right);
+                    q.pop();
+                    if(!isfull(p)){
+                        if(p->left==nullptr&&p->right!=nullptr)return false;
+                        while(!q.empty()){
+                            if(q.front()->left!=nullptr||q.front()->right!=nullptr)return false;
+                            q.pop();
+                        }
+                        break;
+                    }
+                }
+            }
+            
+        return true;
+    }
