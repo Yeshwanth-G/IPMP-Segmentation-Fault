@@ -13,3 +13,31 @@ Node* modify(Node *root)
     answer(root,cursum);
     return root;
 }
+
+---------------------------Iterative-------------------------------------
+
+void answer(TreeNode*root,int& cursum){
+    if(root==nullptr)return;
+    answer(root->right,cursum);
+    cursum+=root->val;
+    root->val=cursum;
+    answer(root->left,cursum);
+}
+TreeNode* bstToGst(TreeNode* root) {
+        long long cursum=0;
+        stack<TreeNode*>stk;
+    TreeNode*p=root;
+    while(!stk.empty()||p!=nullptr){
+        
+        while(p!=nullptr){
+         if(p)stk.push(p);
+            p=p->right;
+        }
+        p=stk.top();
+        cursum+=p->val;
+        p->val=cursum;
+        stk.pop();
+        p=p->left;
+    }
+        return root;
+}
