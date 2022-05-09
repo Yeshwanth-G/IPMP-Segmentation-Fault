@@ -1,0 +1,38 @@
+ //Simple inorder keep track of prevoius node and insert new node after previous node;
+ void inorder(Node*root,Node*&prev,Node*&head){
+        if(root==nullptr)return;
+        inorder(root->left,prev,head);
+        if(prev)prev->right=root;
+        else head=root;
+        root->left=prev;
+        prev=root;
+        inorder(root->right,prev,head);
+    }
+    Node * bToDLL(Node *root)
+    {
+        Node*p=nullptr,*head=nullptr;
+      inorder(root,p,head);
+      return head;
+    }
+ ------------------------------------------------------------
+//when no other parameters allowed;
+ Node* inorder(Node*root){
+        if(root==nullptr)return nullptr;
+        Node*p=inorder(root->left);
+        while(p&&p->right)p=p->right;
+        if(p){p->right=root;
+        root->left=p;}
+        Node*s=inorder(root->right);
+        while(s&&s->left)s=s->left;
+        if(s){root->right=s;
+        s->left=root;}
+        return root;
+    }
+    Node * bToDLL(Node *root)
+    {
+        Node*p=nullptr,*head=nullptr;
+      inorder(root);
+      while(root->left!=nullptr)root=root->left;
+      return root;
+     
+    }
