@@ -1,0 +1,13 @@
+node* answer(int s,int e,vector<int>&nums){
+        if(s>e)return nullptr;
+        int mid=(s+e)/2;
+        node*root=new node(nums[mid]);
+        root->left=answer(s,mid-1,nums);
+        root->right=answer(mid+1,e,nums);
+        return root;
+    }
+    vector<int> sortedArrayToBST(vector<int>& nums) {
+        vector<int>v;
+        return answer(0,nums.size()-1,nums);
+        
+    }//O(n)
