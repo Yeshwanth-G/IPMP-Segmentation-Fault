@@ -1,0 +1,30 @@
+TreeNode* answer(vector<int>&pr,vector<int>&po,int &ip,int s,int e){
+        if(s>e)return nullptr;
+        TreeNode*root=new TreeNode(pr[ip++]);
+        if(s==e)return root;
+        int i;
+        for(i=s;i<=e;i++){
+            if(po[i]==pr[ip])break;
+        }
+        root->left=answer(pr,po,ip,s,i);
+        root->right=answer(pr,po,ip,i+1,e-1);
+        return root;
+    }
+    TreeNode* constructFromPrePost(vector<int>& pr, vector<int>& po) {
+        int ip=0;
+        if(pr.size()==0)return NULL;
+        return answer(pr,po,ip,0,po.size()-1);
+    }
+//O(n^2)
+--------------------------------------------------------------------------------
+//O(n)*************
+int preIndex = 0, posIndex = 0;
+    TreeNode* constructFromPrePost(vector<int>& pre, vector<int>& post) {
+        TreeNode* root = new TreeNode(pre[preIndex++]);
+        if (root->val != post[posIndex])
+            root->left = constructFromPrePost(pre, post);
+        if (root->val != post[posIndex])
+            root->right = constructFromPrePost(pre, post);
+        posIndex++;
+        return root;
+}
