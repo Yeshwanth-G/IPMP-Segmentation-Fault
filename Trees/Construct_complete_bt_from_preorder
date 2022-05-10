@@ -1,4 +1,23 @@
+//Recursive.
 
+Node* answer(int pre[],char temp[],int &i){
+    
+        Node*root=new Node(pre[i]);
+    if(temp[i++]=='L'){
+        root->left=NULL;
+        root->right=NULL;
+        return root;
+    }
+    root->left=answer(pre,temp,i);
+    root->right=answer(pre,temp,i);
+    return root;
+}
+struct Node *constructTree(int n, int pre[], char temp[])
+{
+    int i=0;
+    if(n==0)return nullptr;
+    return answer(pre,temp,i);
+}
 -----------------------------------------------------------------------------------------
 //Iterative
 //if top element left is empty assign current element to left and push into stack if current is not leaf else assign to right and push if non leaf.
