@@ -1,0 +1,20 @@
+//O(n^2)
+Node* answer(int in[],int pre[],int s,int e,int &p){
+        if(s>e)return nullptr;
+        int x=pre[p++];
+        Node*root=new Node(x);
+        int i;
+        for(i=s;i<=e;i++){
+            if(in[i]==x)break;
+        }
+        root->left=answer(in,pre,s,i-1,p);
+        root->right=answer(in,pre,i+1,e,p);
+        return root;
+    }
+    Node* buildTree(int in[],int pre[], int n)
+    {
+        int is=0,ie=n-1,p=0;
+        return answer(in,pre,is,ie,p);
+    }
+  //can be reduced to O(n) by storing inorder elements into map;
+  ------------------------------------------------------------------See Iterative approach also--------------------------------------------------
