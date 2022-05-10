@@ -1,0 +1,26 @@
+
+-----------------------------------------------------------------------------------------
+//Iterative
+//if top element left is empty assign current element to left and push into stack if current is not leaf else assign to right and push if non leaf.
+//if stk top element has both left right non null pop it out.
+struct Node *constructTree(int n, int pre[], char temp[])
+{
+    int i=0;
+    stack<Node*>stk;
+    Node*root=new Node(pre[0]);
+    if(temp[0]=='L')return root;
+    stk.push(root);
+    i++;
+    while(i<n){
+        Node*p=stk.top();
+        if(p->left==nullptr){
+           p->left=new Node(pre[i]);
+           if(temp[i++]=='N')stk.push(p->left);
+        }else if(p->right==nullptr){
+            p->right=new Node(pre[i]);
+           if(temp[i++]=='N')stk.push(p->right);
+        }
+        else stk.pop();
+    }
+    return root;
+}
