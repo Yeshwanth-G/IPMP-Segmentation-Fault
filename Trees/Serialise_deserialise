@@ -1,0 +1,171 @@
+------------------------level order-------------------------------------
+int helper(string &s,int &i){
+        int a=0;
+        bool bl=false;
+        if(s[i]=='-'){
+            i++;
+            bl=true;
+        }
+        while(s[i]!=','){
+            a=a*10+(s[i]-'0');
+            
+            i++;
+        }
+        i++;
+        if(bl==true)a=-a;
+        return a;
+    }
+    string serialize(TreeNode* root) {
+        string s="";
+        if(root==nullptr)return s;
+        queue<TreeNode*>q;
+        q.push(root);
+        while(!q.empty()){
+            TreeNode*p=q.front();
+            q.pop();
+            if(p==nullptr){s+="N,";continue;}
+            else{
+                s+=to_string(p->val);
+                s+=',';
+            }
+            q.push(p->left);
+            q.push(p->right);
+        }
+        cout<<s<<endl;
+        return s;
+        
+        
+    }
+    TreeNode* deserialize(string s) {
+     int i=0;
+        if(s=="")return nullptr;
+    queue<TreeNode*>q;
+    int a=helper(s,i);
+    TreeNode*root=new TreeNode(a);
+    q.push(root);
+        while(!q.empty()){
+            TreeNode*p=q.front();
+            q.pop();
+            if(s[i]=='N'){p->left=NULL;i=i+2;}
+            else{
+                int a=helper(s,i);
+                TreeNode*k=new TreeNode(a);
+                p->left=k;
+                q.push(k);
+            }
+            if(s[i]=='N'){p->right=NULL;i=i+2;}
+            else{
+                int a=helper(s,i);
+                TreeNode*k=new TreeNode(a);
+                p->right=k;
+                q.push(k);
+            }
+        }
+        return root;
+    }
+};
+---------------------------------------------------------------------------------
+//using PreOrder**********
+int helper(string &s,int &i){
+        int a=0;
+        bool bl=false;
+        if(s[i]=='-'){
+            i++;
+            bl=true;
+        }
+        while(s[i]!=','){
+            a=a*10+(s[i]-'0');
+            i++;
+        }
+        i++;
+        if(bl==true)a=-a;
+        return a;
+    }
+    void preorder(TreeNode*root,string&s){
+        if(root==nullptr){
+            s+="N,";
+            return;
+        }
+        s+=to_string(root->val);
+        s+=",";
+        preorder(root->left,s);
+        preorder(root->right,s);
+    }
+    string serialize(TreeNode* root) {
+        string s="";
+        if(root==nullptr)return s;
+       preorder(root,s);
+        cout<<s<<endl;
+        return s;
+        
+    }
+    TreeNode* answer(string &s,int &i){
+        if(i>=s.length()||s[i]=='N'){
+            i=i+2;
+            return nullptr;
+        }
+        int a=helper(s,i);
+        TreeNode*root=new TreeNode(a);
+        root->left=answer(s,i);
+        root->right=answer(s,i);
+        return root;
+    }
+    TreeNode* deserialize(string s) {
+    if(s.empty())return nullptr;
+        int i=0;
+        return answer(s,i);
+    }
+--------------------------------------------------------------------------------------------------
+//Using Postorder********
+int helper(string &s,int &i){
+        int a=0;
+        bool bl=false;
+        string p;
+        while(s[i]!=','&&s[i]!='-'){
+            p+=s[i];
+            i--;
+        }
+        reverse(p.begin(),p.end());
+        if(s[i]=='-'){
+            i--;
+            bl=true;
+        }
+        a=stoi(p);
+        i--;
+        if(bl==true)a=-a;
+        return a;
+    }
+    void postorder(TreeNode*root,string&s){
+        if(root==nullptr){
+            s+="N,";
+            return;
+        }
+        postorder(root->left,s);
+        postorder(root->right,s);
+        s+=to_string(root->val);
+        s+=",";
+    }
+    string serialize(TreeNode* root) {
+        string s="";
+        if(root==nullptr)return s;
+       postorder(root,s);
+        cout<<s<<s.length()<<endl;
+        return s;
+    }
+    TreeNode* answer(string &s,int &i){
+        if(i<0||s[i]=='N'){
+            i=i-2;
+            return nullptr;
+        }
+        int a=helper(s,i);
+        TreeNode*root=new TreeNode(a);
+        root->right=answer(s,i);
+        root->left=answer(s,i);
+        
+        return root;
+    }
+    TreeNode* deserialize(string s) {
+    if(s.empty())return nullptr;
+        int i=s.length()-2;
+        return answer(s,i);
+    }
