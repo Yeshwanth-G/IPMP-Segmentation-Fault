@@ -1,0 +1,33 @@
+//O(n)---striver
+    #define null nullptr
+    #define lmax 1
+    #define rmin 2
+    vector<int> answer(Node*root){
+        if(root==nullptr){
+            vector<int>v(3);
+            v[0]=0;
+            v[lmax]=INT_MIN;
+            v[rmin]=INT_MAX;
+            return v;
+        }
+        vector<int>l=answer(root->left);
+        vector<int>r=answer(root->right);
+        vector<int>v(3);
+        if(root->data>l[lmax]&&root->data<r[rmin]){
+            v[0]=1+l[0]+r[0];
+            v[1]=max(r[lmax],root->data);
+            v[2]=min(l[rmin],root->data);
+        }else{
+            v[0]=max(l[0],r[0]);
+            v[1]=INT_MAX;
+            v[2]=INT_MIN;
+        }
+        return v;
+    
+    }
+    int largestBst(Node *root)
+    {
+       vector<int>v(3);	
+       v=answer(root);
+       return v[0];
+    }
