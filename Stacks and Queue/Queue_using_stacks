@@ -1,0 +1,51 @@
+
+class Queue{
+  stack<int>s1,s2;
+  public:
+  -----------------------------------------
+  //Enqueue O(n),deq-O(1)
+  void enqueue(int x){
+    while(s1.size()!=0){
+      s2.push(s1.top());
+      s1.pop();
+    }
+    s1.push(x);
+    while(!s2.empty()){
+      s1.push(s2.top());
+      s2.pop();
+    }
+  }
+  int dequeue(){
+    int x=s1.top();
+    s1.pop();
+    return x;
+  }
+  --------------------------------------------
+  //enq-O(1),deq-O(1)--armortised
+  void enqueue1(int x){
+    s1.push(x);
+  }
+  int dequeue1(){
+   if(s2.empty())
+     while(!s1.empty()){
+       s2.push(s1.top());
+       s1.pop();
+     }
+    int x=s2.top();
+     s2.pop();
+     return x;
+  }
+  ---------------------------------------------
+  //Using one user stack and recursion stack-O(1),O(n)
+  void enqueue2(int x){
+    s1.push(x);
+  }
+  int dequeue2(){
+     int x=s1.top();
+     s1.pop();
+     if(s1.empty())return x;
+     int p=dequeue2();
+     s1.push(x);
+     return p;
+  }
+};
