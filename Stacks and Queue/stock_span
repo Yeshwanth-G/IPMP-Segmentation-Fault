@@ -1,0 +1,30 @@
+//find ouuuut an element that if closest to i is more than arr[i]
+//For every elelment traverse backward untill we find element more than arr[i]--O(n^2)
+--------O(n),O(n)------------------------------------
+vector <int> calculateSpan(int price[], int n)
+    {
+       stack<int>stk;
+       vector<int>v(n);
+       v[0]=1;
+       stk.push(0);
+       for(int i=1;i<n;i++){
+           while(!stk.empty()&&price[stk.top()]<=price[i])stk.pop();
+           int x=stk.empty()?-1:stk.top();
+           v[i]=i-x;
+           stk.push(i);
+       }
+       return v;
+    }
+ ------------------------------------------------O(n),O(1)------------------
+ vector <int> calculateSpan(int price[], int n)
+    {
+       vector<int>v(n);
+       v[0]=1;
+       
+       for(int i=1;i<n;i++){
+          int c=1;
+          while(i-c>=0&&price[i-c]<=price[i])c+=v[i-c];
+          v[i]=c;
+       }
+       return v;
+ }
