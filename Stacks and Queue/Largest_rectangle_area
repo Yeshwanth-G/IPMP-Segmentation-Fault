@@ -1,0 +1,31 @@
+//for each i calculate maximum area of rectangle that is possible with height=height[i];
+//for each i calculate just left min and just right min and rectangle between them will be of maximum length and height h[i]
+long long getMaxArea(long long arr[], int n)
+    {
+        stack<long long>stk;
+        long long max=-1;
+        stk.push(0);
+        for(int i=1;i<n;i++){
+            while(!stk.empty()&&arr[stk.top()]>arr[i]){
+                long long x=stk.top();
+                stk.pop();
+                long long a;
+                if(!stk.empty())
+                a=arr[x]*(i-stk.top()-1);
+                else a=arr[x]*(i);
+                if(a>max)max=a;
+            }
+            stk.push(i);
+        }
+        int p,q;
+        while(!stk.empty()){
+            long long x=stk.top();
+                stk.pop();
+                long long a;
+                if(!stk.empty())
+                a=arr[x]*((n-stk.top())-1);
+                else a=arr[x]*(n);
+                if(a>max){max=a;}
+        }
+        return max;
+    }
