@@ -1,29 +1,31 @@
-void twoStacks :: push1(int x)
-{
-    if(top2-top1==1)return;
+class twostacks{
+int* arr;
+int size;
+int top1;
+int top2;
+twostacks(int n=100){
+  size=n;
+  top1=-1;
+  top2=size;
+  arr=new int[n];
+}
+void push1(int x){
+if(top2-top1==1)return;
 top1++;
 arr[top1]=x;
 }
-
-void twoStacks ::push2(int x)
-{
+void push2(int x){
 if(top2-top1==1)return;
-top2--;
-arr[top2]=x;
+arr[++top2]=x;
 }
-
-int twoStacks ::pop1()
-{
+int pop1(){
 if(top1==-1)return -1;
-int x=arr[top1];
-top1--;
+int x=arr[top1]--;
 return x;
 }
-
-int twoStacks :: pop2()
-{
+int pop2(){
 if(top2==size)return -1;
-int x=arr[top2];
-top2++;
+int x=arr[top2++];
 return x;
 }
+};
