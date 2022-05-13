@@ -1,0 +1,40 @@
+//reverse entire string and then reverse each word
+string reverseWords(string S) 
+    { 
+        reverse(S.begin(),S.end());
+        int s=S.length()-1;
+        int e=s;
+        while(s>=0&&e>=0){
+            while(e>=0&&S[e]!='.')e--;
+            int p=e;
+            e++;
+            while(e<s){
+                swap(S[e],S[s]);
+                e++;s--;
+            }
+            s=p-1;
+            e=p-1;
+        }
+        return S;
+    } 
+    
+   -----------------------------------------------------
+   //start from end take each word and add it to result
+   void answer(string s,string &ans,int a){
+        if(a<0)return;
+        string p;
+        while(a>=0&&s[a]!='.'){
+            p=s[a]+p;
+            a--;
+        }
+        ans+=p;
+        if(a>=0)ans+='.';
+        answer(s,ans,--a);
+    }
+    string reverseWords(string S) 
+    { 
+        string p;
+        string ans;
+        answer(S,ans,S.length()-1);
+        return ans;
+    } 
