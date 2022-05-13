@@ -1,0 +1,16 @@
+//Input-aaabbb--output=a3b3;
+//O(n)
+string encode(string src)
+{     
+  string p;
+  p+=src[0];
+  p+='1';
+  for(int i=1;i<src.length();i++){
+      if(src[i]==src[i-1])p[p.length()-1]++;
+      else{
+          p+=src[i];
+          p+='1';
+      }
+  }
+return p;  
+}     
