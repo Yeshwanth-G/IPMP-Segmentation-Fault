@@ -1,0 +1,34 @@
+ //Recursion:O(2^n)
+ int knapSack(int W, int wt[], int val[], int n) 
+    { 
+        if(n<=0)return 0;
+       if(wt[n-1]>W)return knapSack(W,wt,val,n-1);
+       else return max(val[n-1]+knapSack(W-wt[n-1],wt,val,n-1),knapSack(W,wt,val,n-1));
+    }
+------------------------------------------------------------------------------------------------
+ //Memoization :O(N*W),O(n*w)
+ int dp[1001][1001];
+    Solution(){
+        memset(dp,-1,sizeof(dp));
+    }
+    int knapSack(int W, int wt[], int val[], int n) 
+    { 
+        if(n<=0)return 0;
+        if(dp[W][n]!=-1)return dp[W][n];
+       if(wt[n-1]>W)return dp[W][n]=knapSack(W,wt,val,n-1);
+       else return dp[W][n]=max(val[n-1]+knapSack(W-wt[n-1],wt,val,n-1),knapSack(W,wt,val,n-1));
+    }
+    
+ --------------------------------------------------------------------------------------------------
+    //Tabulation:O(n*w),O(n*w)
+     int knapSack(int W, int wt[], int val[], int n) 
+    { 
+       int dp[W+1];
+       for(int i=0;i<=n;i++){
+           for(int j=W;j>=0;j--){
+           if(i==0){dp[j]=0;continue;}
+            if(wt[i-1]<=j)dp[j]=max(dp[j],dp[j-wt[i-1]]+val[i-1]);   
+           }
+       }
+       return dp[W];
+    }
