@@ -1,0 +1,13 @@
+//same as lis but instead of 1+dp[i]==>a[i]+dp[i] at line 9
+	int maxSumIS(int a[], int n)  
+	{
+        int dp[n+1];
+        for(int i=0;i<=n;i++)dp[i]=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<=n;j++){
+                int mx=j<n?a[j]:INT_MAX;
+                if(a[i]<mx)dp[j]=std::max(a[i]+dp[i],dp[j]);
+            }
+        }
+        return dp[n];
+    }
