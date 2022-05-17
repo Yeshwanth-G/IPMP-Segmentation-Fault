@@ -1,0 +1,100 @@
+//LIS== longest common subsequence between sorted array with no dplicates and original array.
+//Recursive lcs-TLE
+class Solution
+{
+    public:
+  
+    int lcs(vector<int>&a,int b[],int m,int n){
+        if(n<=0||m<=0)return 0;
+        if(a[m-1]==b[n-1]){return 1+lcs(a,b,m-1,n-1);}
+        else return max(lcs(a,b,m-1,n),lcs(a,b,m,n-1));
+    }
+    int longestSubsequence(int n, int a[])
+    {
+       int b[n];
+       for(int i=0;i<n;i++)b[i]=a[i];
+       sort(a,a+n);
+       vector<int>c;
+       for(int i=0;i<n;i++){
+           if(c.empty()||c.back()!=a[i])c.push_back(a[i]);
+       }
+       return lcs(c,b,c.size(),n);
+    }
+};
+----------------------------------------------------------------
+//Memoized LCS-O(n*n)
+class Solution
+{
+   int dp[1001][1001];
+    public:
+    int lcs(vector<int>&a,int b[],int m,int n){
+        if(n<=0||m<=0)return 0;
+        if(dp[m][n]!=-1)return dp[m][n];
+        if(a[m-1]==b[n-1]){return dp[m][n]=1+lcs(a,b,m-1,n-1);}
+        else return dp[m][n]=max(lcs(a,b,m-1,n),lcs(a,b,m,n-1));
+    }
+    int longestSubsequence(int n, int a[])
+    { 
+        memset(dp,-1,sizeof(dp));
+       int b[n];
+       for(int i=0;i<n;i++)b[i]=a[i];
+       sort(a,a+n);
+       vector<int>c;
+       for(int i=0;i<n;i++){
+           if(c.empty()||c.back()!=a[i])c.push_back(a[i]);
+       }
+       return lcs(c,b,c.size(),n);
+    }
+};
+-----------------------------------------------------------------------------
+//LIS
+//we keep a max and if our ement is less than max we have two choices include it and make it max or exclude it and move further with same max.
+//REcursive
+class Solution
+{
+   int dp[1001][1001];
+    public:
+    int lis(int a[],int n,int max){
+        if(n<=0)return 0;
+        if(a[n-1]<max){
+        return std::max(1+lis(a,n-1,a[n-1]),lis(a,n-1,max));}
+        else return lis(a,n-1,max);
+        
+    }
+    int longestSubsequence(int n, int a[])
+    { 
+        memset(dp,-1,sizeof(dp));
+       
+       return lis(a,n,INT_MAX);
+    }
+};
+------------------------------------------------------------------------------------------------------
+//LIS-tabulation.-O(n*n)
+    int longestSubsequence(int n, int a[])
+    { 
+        int dp[n+1][n+1];
+        for(int i=0;i<=n;i++){
+            for(int j=0;j<=n;j++){
+                if(i==0){dp[i][j]=0;continue;}
+                int mx=j<n?a[j]:INT_MAX;
+                if(a[i-1]<mx)dp[i][j]=std::max(1+dp[i-1][i-1],dp[i-1][j]);
+                else dp[i][j]=dp[i-1][j];
+            }
+        }
+        return dp[n][n];
+    }
+ ---------------------------------------------------------------------------------------
+ //LIS-Space optimised-O(n)
+ time:O(n*n)
+  int longestSubsequence(int n, int a[])
+    { 
+        int dp[n+1];
+        for(int i=0;i<=n;i++)dp[i]=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<=n;j++){
+                int mx=j<n?a[j]:INT_MAX;
+                if(a[i]<mx)dp[j]=std::max(1+dp[i],dp[j]);
+            }
+        }
+        return dp[n];
+    }
