@@ -1,0 +1,54 @@
+//O(2^n) recursion
+class Solution {
+public:
+    int answer(vector<vector<int>>&m,int a,int b){
+        int m1=m.size(),n=m[0].size();
+        if(a<0||b<0||a>=m1||b>=n)return INT_MAX;
+        if(a==0&&b==0)return m[a][b];
+        return m[a][b]+min(answer(m,a-1,b),answer(m,a,b-1));
+    }
+    int minPathSum(vector<vector<int>>& grid) {
+        return answer(grid,grid.size()-1,grid[0].size()-1);
+    }
+};
+------------------------------------------------------------------
+//memoisation O(m*n)
+class Solution {
+public:
+    int dp[201][201];
+    Solution(){
+        memset(dp,-1,sizeof(dp));
+    }
+    int answer(vector<vector<int>>&m,int a,int b){
+        
+        int m1=m.size(),n=m[0].size();
+        if(a<0||b<0||a>=m1||b>=n)return INT_MAX;
+        if(a==0&&b==0)return m[a][b];
+         if(dp[a][b]!=-1)return dp[a][b];
+        return dp[a][b]=m[a][b]+min(answer(m,a-1,b),answer(m,a,b-1));
+    }
+    int minPathSum(vector<vector<int>>& grid) {
+        return answer(grid,grid.size()-1,grid[0].size()-1);
+    }
+};
+-----------------------------------------------------------------
+//Bottom_up:O(n*m)
+class Solution {
+public:
+    int dp[201][201];
+    Solution(){
+        memset(dp,-1,sizeof(dp));
+    }
+    int minPathSum(vector<vector<int>>& grid) {
+        int m=grid.size(),n=grid[0].size();
+        for(int i=m-1;i>=0;i--){
+            for(int j=n-1;j>=0;j--){
+                int mn=INT_MAX;
+                if(j+1<n)mn=min(mn,grid[i][j+1]);
+                if(i+1<m)mn=min(mn,grid[i+1][j]);
+                if(mn!=INT_MAX)grid[i][j]=grid[i][j]+mn;
+            }
+        }
+        return grid[0][0];
+    }
+};
