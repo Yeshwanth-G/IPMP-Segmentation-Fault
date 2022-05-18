@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int dp[101][10001];
+    Solution(){
+        memset(dp,-1,sizeof(dp));
+    }
+    int superEggDrop(int n, int f) {
+        if(f==0||n==0)return 0;
+        if(n==1)return f;
+        int mn=INT_MAX;
+        if(dp[n][f]!=-1)return dp[n][f];
+        int s=1,e=f;
+        while(s<=e){
+            int k=(s+e)/2;
+            int y;
+            if(dp[n-1][k-1]!=-1)y=dp[n-1][k-1];
+            else
+            y=superEggDrop(n-1,k-1);
+            int x;
+            if(dp[n][f-k]!=-1)x=dp[n][f-k];
+            else
+            x=superEggDrop(n,f-k);
+            mn=min(max(1+y,1+x),mn);
+            if(y>x){
+                e=k-1;
+            }
+            else{
+                s=k+1;
+            }
+        }
+        return dp[n][f]=mn;
+    }
+};
