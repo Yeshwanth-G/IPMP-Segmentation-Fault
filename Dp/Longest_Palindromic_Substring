@@ -1,0 +1,31 @@
+//form a table for index*length denoting substring of length i(rows) at index j(col)
+//if(s[i]=s[i+length-1]) means last characters matched now refer table for substring of length len-2 at i+1 and if its 1 then dp[i][j]=1;
+//else dp[i][j]=0;
+//O(n^2)
+class Solution {
+public:    
+    string longestPalindrome(string s) {
+        int n=s.length();
+        int dp[n+1][n];
+        int mx=1,mxi=0;
+        for(int i=0;i<=n;i++){
+            for(int j=0;j<n;j++){
+                if(i==0){dp[i][j]=1;continue;}
+                if(i==1){dp[i][j]=1;continue;}
+                if(j+i-1>=n)dp[i][j]=0;
+                else
+                if((j+i-1<n)&&(s[j]==s[j+i-1]))dp[i][j]=dp[i-2][j+1];
+                else dp[i][j]=0;
+                if(dp[i][j]&&i>mx){
+                    mx=i;
+                    mxi=j;
+                }
+            }
+        }
+        string p;
+        for(int i=mxi;i<mxi+mx;i++){
+            p+=s[i];
+        }
+        return p;
+    }
+};
