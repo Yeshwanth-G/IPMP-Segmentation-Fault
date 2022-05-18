@@ -1,0 +1,53 @@
+//Recursive
+class Solution{
+    public:
+    long long answer(int arr[],int s,int e){
+        if(s>e)return 0;
+        if(s==e)return arr[s];
+        if(e-s==1)return max(arr[s],arr[e]);
+        return max((arr[s]+min(answer(arr,s+2,e),answer(arr,s+1,e-1))),(arr[e]+min(answer(arr,s+1,e-1),answer(arr,s,e-2))));
+    }
+    long long maximumAmount(int arr[], int n){
+          return answer(arr,0,n-1);
+    }
+};
+---------------------------------------------------------------------------------------------------------------------------
+//Memoized
+class Solution{
+    public:
+    int dp[1001][1001];
+    long long answer(int arr[],int s,int e){
+        if(s>e)return 0;
+        if(s==e)return arr[s];
+        if(e-s==1)return max(arr[s],arr[e]);
+        if(dp[s][e]!=-1)return dp[s][e];
+        return dp[s][e]=max((arr[s]+min(answer(arr,s+2,e),answer(arr,s+1,e-1))),(arr[e]+min(answer(arr,s+1,e-1),answer(arr,s,e-2))));
+    }
+    long long maximumAmount(int arr[], int n){
+        memset(dp,-1,sizeof(dp));
+          return answer(arr,0,n-1);
+    }
+};
+---------------------------------------------------------------------------------------------------------------------------
+//Tabulated-2D
+    long long answer(int arr[],int s,int e){
+        int n=e+1;
+        int dp[e+1][e+1];
+        for(int s=n-1;s>=0;s--){
+        for(int e=s;e<n;e++){
+            if(e==s)dp[s][e]=arr[s];
+            else if(e==s+1)dp[s][e]=max(arr[s],arr[e]);
+            else{
+                
+            int a=min(s+2<n?dp[s+2][e]:INT_MAX,(s+1)<n?dp[s+1][e-1]:INT_MAX);
+            int b=min(s+1<n?dp[s+1][e-1]:INT_MAX,e-2>=0?dp[s][e-2]:INT_MAX);
+            dp[s][e]=max((arr[s]+a),(arr[e]+b));
+            }
+            }
+        }
+       
+        return dp[0][n-1];
+    }
+    long long maximumAmount(int arr[], int n){
+          return answer(arr,0,n-1);
+    }
