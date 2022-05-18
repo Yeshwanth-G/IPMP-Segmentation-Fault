@@ -1,0 +1,13 @@
+//We may include or exclude a given node;
+int LISS(Node *root)
+{
+    if(root==nullptr)return 0;
+    if(root->data<0)return abs(root->data);
+    int y=LISS(root->left)+LISS(root->right);//exclude node
+    //include node
+    int x=0;
+    if(root->left)x+=LISS(root->left->left)+LISS(root->left->right);
+    if(root->right)x+=LISS(root->right->left)+LISS(root->right->right);
+    root->data=-max(y,x+1);
+    return std::max(y,x+1);
+}
