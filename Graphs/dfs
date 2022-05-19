@@ -9,4 +9,4 @@ void dfs(vector<int>adj[],int s,vector<int>&visited,vector<int>&ans){
         for(int i=0;i<V;i++)if(!visited[i])dfs(adj,i,visited,ans);
         return ans;
     }
-    //O(2*n)-visiting each vertex at max two times,O(n)
+    //O(2*n)-visiting each vertex at max two times,O(n)-recursion stack
