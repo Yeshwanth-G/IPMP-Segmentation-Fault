@@ -1,0 +1,23 @@
+//DFS-O(n+e),O(n)+O(n)+O(n+e)
+void dfs(vector<int>adj[],int i,vector<bool>&visited,stack<int>&stk){
+	    visited[i]=1;
+	    for(int j=0;j<adj[i].size();j++){
+	        if(!visited[adj[i][j]])dfs(adj,adj[i][j],visited,stk);
+	    }
+	    stk.push(i);
+	}
+	vector<int> topoSort(int V, vector<int> adj[]) 
+	{
+	   vector<int>toposort;
+	   vector<bool>visited(V,false);
+	   stack<int>stk;
+	   for(int i=0;i<V;i++){
+	       if(visited[i]==false)dfs(adj,i,visited,stk);
+	   }
+	   while(!stk.empty()){
+	       toposort.push_back(stk.top());
+	       stk.pop();
+	   }
+	   return toposort;
+	}
+  -----------------------------------------------------------------------
