@@ -1,0 +1,12 @@
+void dfs(vector<int>adj[],int s,vector<int>&visited,vector<int>&ans){
+        visited[s]=true;
+        ans.push_back(s);
+        for(int i=0;i<adj[s].size();i++)if(!visited[adj[s][i]])dfs(adj,adj[s][i],visited,ans);
+    }
+    vector<int> dfsOfGraph(int V, vector<int> adj[]) {
+        vector<int>visited(V,false);
+        vector<int>ans;
+        for(int i=0;i<V;i++)if(!visited[i])dfs(adj,i,visited,ans);
+        return ans;
+    }
+    //O(2*n)-visiting each vertex at max two times,O(n)
