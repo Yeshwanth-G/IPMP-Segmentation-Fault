@@ -1,0 +1,32 @@
+vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
+    {
+        vector<int>dist(V,INT_MAX);
+        vector<int>visited(V,false);
+        int count=0;
+        dist[S]=0;
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+        pq.push({0,S});
+        while(!pq.empty()){
+            int key=pq.top().second;
+            pq.pop();//O(logV)
+            if(visited[key])continue;
+            count++;
+            if(key==-1)break;
+            visited[key]=true;
+            for(int i=0;i<adj[key].size();i++){//iterate untill degree of node times
+                int x=adj[key][i][0];
+                int w=adj[key][i][1];
+                if(!visited[x]&&dist[x]>dist[key]+w){
+                    dist[x]=dist[key]+w;
+                    pq.push({dist[x],x});//O(logV)
+                }
+                
+            }
+        }
+        return dist;
+    }
+  //extract min and go to all adjacants and upate distance and push into queue
+  sum of (log(v)+deg(v)*log(v)) for all nodes
+  son VLogV+(deg1+deg2+deg3...)logV
+  //VlogV+2ElogV
+  //(v+2e)logv=(V+e)logv.
