@@ -10,3 +10,20 @@ void dfs(vector<int>adj[],int s,vector<int>&visited,vector<int>&ans){
         return ans;
     }
     //O(2*n)-visiting each vertex at max two times,O(n)-recursion stack
+    -------------------------------------------------------------------------------------------------
+    //Ierative
+    void dfs(vector<int>adj[],int i,vector<bool>&visited,stack<int>&stk){
+	    stack<int>dfs;
+	    dfs.push(i);
+	    while(!dfs.empty()){
+	        int k=dfs.top();
+                dfs.pop();
+***	        if(!visited[k]){
+***              visited[k]=1;
+***              cout<<k<<" ";
+                }
+	        for(int j=0;j<adj[k].size();j++){
+	            if(!visited[adj[k][j]])dfs.push(adj[k][j]);
+	        }
+	    }
+	}
