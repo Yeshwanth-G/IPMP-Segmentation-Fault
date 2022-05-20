@@ -27,3 +27,6 @@ void dfs(vector<int>adj[],int s,vector<int>&visited,vector<int>&ans){
 	        }
 	    }
 	}
+//DFS
+here we are visiting every node twice and every edge twice at max so,time complexity is O(2(n+e))
+
