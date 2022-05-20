@@ -21,7 +21,9 @@ void dfs(vector<int>adj[],int i,vector<bool>&visited,stack<int>&stk){
 	   return toposort;
 	}
  ------------------------------------------------------------------------
- //Using Iterative dfs
+ 
+ //Using Iterative dfs using covered array.
+ 
 void dfs(vector<int>adj[],int i,vector<bool>&visited,stack<int>&stk){
 	    stack<int>dfs;
 	    dfs.push(i);
@@ -49,4 +51,22 @@ void dfs(vector<int>adj[],int i,vector<bool>&visited,stack<int>&stk){
 	   }
 	   return toposort;
 	}
+	
 --------------------------------------------------------------------------------------------------
+
+//Using iterative dfs without covered array-modifying visited array
+
+void dfs(vector<int>adj[],int i,vector<bool>&visited,stack<int>&stk){
+	    stack<int>dfs;
+	    dfs.push(i);
+	    
+	   vector<bool>covered(visited.size(),false);
+	    while(!dfs.empty()){
+	        int k=dfs.top();
+	        if(visited[k]==0)visited[k]=1;
+	        else {if(visited[k]!=2){stk.push(k);visited[k]=2;}dfs.pop();continue;}
+	        for(int j=0;j<adj[k].size();j++){
+	            if(!visited[adj[k][j]])dfs.push(adj[k][j]);
+	        }
+	    }
+	}
