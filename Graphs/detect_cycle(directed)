@@ -1,4 +1,26 @@
-
+//Since its Directed you no need to maintain parent
+//do dfs and if you find a new visited vertex check if its in recursion stack if so return cycle present
+bool dfs(vector<int>adj[],vector<int>&v,int s,vector<int>&helper){
+        v[s]=true;
+        helper[s]=true;
+        for(int i=0;i<adj[s].size();i++){
+            if(v[adj[s][i]]==false){
+                if(dfs(adj,v,adj[s][i],helper))return true;
+            }
+            if(helper[adj[s][i]]==true)return true;
+        }
+        helper[s]=false;
+        return false;
+    }
+    bool isCyclic(int V, vector<int> adj[]) {
+        vector<int>visited(V,0),helper(V,false);
+        for(int i=0;i<V;i++){
+        if(!visited[i]){
+        if(dfs(adj,visited,i,helper))return true;
+        }
+        }
+        return false;
+    }
 ----------------------------------------------------------------------------------------------------
 //Using bfs-do toposort,if finally you can obtain toposort-no cycle else cycle present
 bool isCyclic(int V, vector<int> adj[]) {
