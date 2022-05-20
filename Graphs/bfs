@@ -20,3 +20,14 @@ vector<int> bfsOfGraph(int V, vector<int> adj[]) {
         }
         return ans;
     }
+    
+//BFS
+while(queue empty){
+visit node-O(1)
+traverse for adjacant edges--O(deg of vertex)
+}
+so O(1)+O(deg1)+O(1)+O(deg2)+..........
+v+O(deg1+deg2+deg2...)
+O(v+2e)
+---------------------
+
