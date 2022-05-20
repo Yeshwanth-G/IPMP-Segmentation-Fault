@@ -1,0 +1,64 @@
+int minkey(vector<int>&v,vector<int>&dist){
+	    int mn=INT_MAX,mni=-1;
+	    for(int i=0;i<dist.size();i++){
+	        if(!v[i]&&dist[i]<mn)mn=dist[i],mni=i;
+	    }
+	    return mni;
+	}
+    int spanningTree(int n, vector<vector<int>> adj[])
+    {
+        vector<int>visited(n,false);  
+        vector<int>parent(n,-1);
+        vector<int>dist(n,INT_MAX);
+        dist[0]=0;
+        int count=0;
+        int sum=0;
+        while(count<n){
+            int key=minkey(visited,dist);
+            if(key==-1)break;
+            visited[key]=1;
+            sum+=dist[key];
+            count++;
+            for(int i=0;i<adj[key].size();i++){
+                int x=adj[key][i][0];
+                int w=adj[key][i][1];
+                if(!visited[x]&&dist[x]>w){
+                    dist[x]=w;
+                }
+            }
+        }
+        return sum;
+    }
+    //O(e*V)
+-------------------------------------------------------------------------------------------------------------
+int spanningTree(int n, vector<vector<int>> adj[])
+    {
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+        vector<int>visited(n,false);  
+        // vector<int>parent(n,-1);
+        vector<int>dist(n,INT_MAX);
+        dist[0]=0;
+        int count=0;
+        pq.push({0,0});
+        int sum=0;
+        while(!pq.empty()){
+            int key=pq.top().second;
+            pq.pop();
+            if(visited[key])continue;//needed as we need to update sum only for non visited nodes and should not add again for it
+            visited[key]=1;
+            sum+=dist[key];
+            for(int i=0;i<adj[key].size();i++){
+                int x=adj[key][i][0];
+                int w=adj[key][i][1];
+                if(!visited[x]&&dist[x]>w){
+                    dist[x]=w;
+                    pq.push({w,x});
+                    // parent[x]=key;
+                }
+            }
+        }
+        return sum;
+    }
+};
+//parent array needed to get edges in mst but since only cost is asked can be done with simple sum variable;
+//O((e+v)logv))
