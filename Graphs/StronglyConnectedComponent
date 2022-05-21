@@ -1,0 +1,38 @@
+void dfs(vector<int>adj[],int a,vector<int>&visited,stack<int>&stk){
+	    visited[a]=true;
+	    for(int i=0;i<adj[a].size();i++){
+	        if(!visited[adj[a][i]]){
+	            dfs(adj,adj[a][i],visited,stk);
+	        }
+	    }
+	    stk.push(a);
+	}
+    int kosaraju(int V, vector<int> adj[])
+    {
+        vector<int>topo;
+        stack<int>tp;
+        vector<int>visited(V,false);
+        for(int i=0;i<V;i++)
+        if(!visited[i])
+        dfs(adj,i,visited,tp);
+        while(!tp.empty()){
+            visited[tp.top()]=false;
+            topo.push_back(tp.top());
+            tp.pop();
+        }
+        vector<int>temp[V];
+        for(int i=0;i<V;i++){
+            for(int j=0;j<adj[i].size();j++){
+                temp[adj[i][j]].push_back(i);
+            }
+        }
+        int count=0;
+        for(int i=0;i<V;i++){
+            // cout<<topo[i]<<endl;
+            if(!visited[topo[i]]){
+         dfs(temp,topo[i],visited,tp);
+         count++;
+        }
+        }
+        return count;
+    }
