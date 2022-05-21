@@ -1,0 +1,35 @@
+bool dfs(vector<int>adj[],int a,int par,vector<int>&visited){
+        visited[a]=true;
+        for(int i=0;i<adj[a].size();i++){
+            int x=adj[a][i];
+            if(!visited[x]){
+            if(dfs(adj,x,a,visited))return true;}
+            else if(x!=par)return true;
+        }
+        return false;
+    }
+    bool bfs(vector<int>adj[],vector<int>&visited,int src){
+        queue<pair<int,int>>q;
+        q.push({src,-1});
+        visited[src]=true;
+        while(!q.empty()){
+            int x=q.front().first;
+            int par=q.front().second;
+            q.pop();
+            for(int i=0;i<adj[x].size();i++){
+                if(!visited[adj[x][i]])q.push({adj[x][i],x}),visited[adj[x][i]]=true;
+                else if(adj[x][i]!=par)return true;
+            }
+        }
+        return false;
+    }
+    bool isCycle(int V, vector<int> adj[]) {
+        vector<int>visited(V,false);
+        for(int i=0;i<V;i++)
+        if(!visited[i])
+        if(bfs(adj,visited,i))return true;
+        return false;
+    }
+};
+//can also be done by union find-O(elogn),keep on union of edges and if you cannot union an edge means a cycle detected.
+//
