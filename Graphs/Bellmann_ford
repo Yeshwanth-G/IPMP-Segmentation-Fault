@@ -1,0 +1,21 @@
+//works for graphs without negative edge cycles
+//and if a undirected graph has negative edges then its treated as negative cycle so it fails there also.
+int isNegativeWeightCycle(int n, vector<vector<int>>edges){
+	    vector<int>dist(n,INT_MAX);
+	    dist[0]=0;
+	    for(int i=1;i<=n-1;i++){
+	        for(int j=0;j<edges.size();j++){
+	            int u=edges[j][0];
+	            int v=edges[j][1];
+	            int w=edges[j][2];
+	            if(dist[u]!=INT_MAX&&dist[u]+w<dist[v])dist[v]=w+dist[u];
+	        }
+	    }
+	    for(int j=0;j<edges.size();j++){
+	            int u=edges[j][0];
+	            int v=edges[j][1];
+	            int w=edges[j][2];
+	            if(dist[u]!=INT_MAX&&dist[u]+w<dist[v])return true;
+	        }
+	        return false;
+	}
