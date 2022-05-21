@@ -1,0 +1,40 @@
+  int timer=0;
+    void dfs(vector<int>adj[],int a,int parent,vector<int>&visited,vector<int>&tin,vector<int>&low,vector<vector<int>>&ans){
+        visited[a]=true;
+        tin[a]=low[a]=timer++;
+       
+        for(int i=0;i<adj[a].size();i++){
+            int x=adj[a][i];
+            if(x==parent)continue;
+            if(visited[x]==false){
+                dfs(adj,x,a,visited,tin,low,ans);
+                if(tin[a]<low[x]){
+                    vector<int>k={a,x};
+                    ans.push_back(k);
+                }
+                low[a]=min(low[a],low[x]);
+            }
+            else {
+                low[a]=min(low[a],tin[x]);
+            }
+        }
+    }
+    vector<vector<int>> criticalConnections(int n, vector<vector<int>>& con) {
+        vector<int>adj[n];
+        for(int i=0;i<con.size();i++){
+            int u=con[i][0];
+            int v=con[i][1];
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        vector<vector<int>>ans;
+        vector<int>visited(n,false);
+        vector<int>tin(n,0);
+        vector<int>low(n,0);
+        for(int i=0;i<n;i++){
+            if(!visited[i])
+                dfs(adj,i,-1,visited,tin,low,ans);
+        }
+        return ans;
+    }
+};
