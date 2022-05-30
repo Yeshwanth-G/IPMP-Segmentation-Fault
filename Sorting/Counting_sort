@@ -1,0 +1,18 @@
+string countSort(string arr){
+        vector<int>v(26,0);
+        int n=arr.size();
+        for(int i=0;i<n;i++){
+            v[arr[i]-'a']++;
+        }
+        for(int i=1;i<26;i++)v[i]+=v[i-1];
+        string p=arr;
+        for(int i=n-1;i>=0;i--){
+            int x=v[arr[i]-'a']--;
+            p[x-1]=arr[i];
+            
+        }
+        return p;
+    }//O(n),O(n)-not inplace alogorithm.
+ ----------------------------------------------
+ if array has negatuve elements then take min and max and make count array size ar max-min+1;
+ and store element's count ar count[arr[i]-min];
