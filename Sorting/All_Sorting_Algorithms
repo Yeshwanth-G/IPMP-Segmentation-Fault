@@ -71,6 +71,31 @@ arr[j+1]=key;
         swap(nums[l],nums[j]);
         return j;
     }
+   -----------------------------Taking middle as pivot---------------------------------------
+    int partion(int*nums,int l,int h){
+// {1,2,5,7,6}
+        int i=l;
+        int j=h;
+        int mid=(l+h)/2;
+        int pivot=nums[mid],pi=mid;
+        while(i<j){
+        while(i<h&&(nums[i]<=pivot||i==mid)){
+            i++;
+        }
+        while(j>=0&&(nums[j]>pivot||j==mid)){
+            j--;
+        }
+        if(i<j){
+            swap(nums[i],nums[j]);
+        }
+        }
+        if(i>mid&&j>mid)
+        swap(nums[mid],nums[j]),pi=j;
+        
+        else if(i<mid&&j<mid)swap(nums[mid],nums[i]),pi=i;
+        return pi;
+    }
+   ------------------------------------------------------------------------------------------
     void quicksort(int*nums,int l,int h){
          if(l<h){
              int pivot=partion(nums,l,h);
@@ -78,10 +103,26 @@ arr[j+1]=key;
              quicksort(nums,pivot+1,h);
          }
     }
+    
+  ----------------------iterative version----------------------
+  void quicksort(int*nums,int l,int h){
+         stack<std::pair<int,int>>stk;
+        stk.push({l,h});
+        while(!stk.empty()){
+            int l=stk.top().first;
+            int h=stk.top().second;
+            stk.pop();
+            int pivot=partion(nums,l,h);
+             if(pivot+1<h)stk.push({pivot+1,h});
+             if(pivot-1>l)stk.push({l,pivot-1});
+        }
+    }
+  -------------------------------------------------------------
 int* QuickSort(int*nums,int n) {
         quicksort(nums,0,n-1);
         return nums;
     }
+  
 //-------------------------------------------
 //-----------------------------------MergeSort---------------------------------------------
 // TimeComplexity-O(nlogn)-in best,worst,avg cases;
