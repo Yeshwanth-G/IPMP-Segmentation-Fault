@@ -168,6 +168,21 @@ vector<int> MergeSort(vector<int>& nums) {
         mergesort(nums,0,nums.size()-1);
         return nums;
     }
+ --------------------------Itertive------------------------------------------
+ vector<int> MergeSort(vector<int>& nums) {
+       int cur=1,n=nums.size();
+       for(;cur<n;cur=cur*2){
+           int index=0;
+           while(index<n){
+               cout<<"index:"<<index<<endl;
+               int mid=min(index+cur-1,n-1);
+               int r=min(index+(2*cur)-1,n-1);
+               merge(nums,index,mid,r);
+               index=r+1;
+           }
+       }
+        return nums;
+    }
 ------------------------------------HeapSort-----------------------------------
 void heapify(vector<int>&nums,int a,int n){
     int l=2*a+1;
