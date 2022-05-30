@@ -238,3 +238,5 @@ printf("\n");
 
 return 0;
 }
+//STL sort() is a hybrid of quick sort,heapsort() and insertion sort.
+//normally uses quick sort but if proper partitons are not happening then moves to heapsort and for smaller input size uses insertion sort.
