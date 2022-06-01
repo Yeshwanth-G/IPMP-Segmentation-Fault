@@ -1,0 +1,19 @@
+keep taking xor of stream of integers when xor is 1 then return ans-O(n)
+--------------------O(logn)--------------------------------
+int s=0,e=1;
+if(arr[s]==1)return s;
+while(arr[e]!=1){
+s=e;
+e=e*2;
+}
+//now find lower bound between s,e;
+int ans=-1;
+while(s<=e){
+int mid=(e+s)/2;
+if(arr[mid]==1){
+ans=mid;
+e=mid-1;
+}
+else s=mid+1;
+}
+return ans;
