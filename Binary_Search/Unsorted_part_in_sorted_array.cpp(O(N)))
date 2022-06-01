@@ -1,0 +1,35 @@
+vector<int> printUnsorted(int arr[], int n) {
+	    int s=0,e=n-1;
+	    vector<int>v(2,0);
+	    for(;s<n-1;s++){
+	        if(arr[s+1]<arr[s]){
+	            break;
+	        }
+	    }--first index which disturbs sort property
+	    if(s==n-1)return v;
+	    for(;e>0;e--){
+	        if(arr[e-1]>arr[e]){
+	            break;
+	        }
+	    }-last index that disturbs sort property.
+	    int mx=INT_MIN,mn=INT_MAX;
+	    for(int i=s;i<=e;i++){
+	        mx=max(arr[i],mx);
+	        mn=min(arr[i],mn);
+	    }-find max and min in given range
+	    for(int i=0;i<s;i++){
+	        if(arr[i]>mn){
+	            s=i;
+	            break;
+	        }
+	    }-from first find the elemnt that is more than min ans update start variable
+	    for(int i=n-1;i>e;i--){
+	        if(arr[i]<mx){
+	            e=i;
+	            break;
+	        }
+	    }-form end find elemnet more than max and update end.
+	    v[0]=s;
+	    v[1]=e;
+	    return v;
+	}-O(N)
