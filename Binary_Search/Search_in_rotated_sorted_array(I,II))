@@ -47,3 +47,18 @@ int search(int v[], int s, int e, int key){
     }
  //worst case {1,1,1,1} and search for 3 it will take O(n)
  //O(n)in worst case and O(logn)in best case.
+ ---------------------------------------------------------------------------
+ //find minimum in rotated sorted array
+ int findMin(int arr[], int n){
+        int s=0,e=n-1;
+        int ans=arr[s];
+        while(s<=e){
+            int mid=(e+s)/2;
+            if(arr[mid]<arr[0]){
+                ans=arr[mid];
+                e=mid-1;
+            }
+            else s=mid+1;
+        }
+        return ans;
+    }//for searching compare with arr[s],for minimum compare with arr[0].
