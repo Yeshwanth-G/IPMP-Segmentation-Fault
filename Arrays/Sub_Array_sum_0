@@ -1,0 +1,53 @@
+//check if there exists a sub array-map of ints enough
+bool subArrayExists(int arr[], int n)
+    {
+//Approach:Iterate the array and store the sums in a hashmap 
+//and if any sum repeates that means the sum of all the elements between them is 0;
+//Time:O(n),space:O(1);
+unordered_map<int,int>hmap;
+        int cursum=0;
+        for(int i=0;i<n;i++){
+            cursum=cursum+arr[i];
+            if(hmap.empty()||hmap.find(cursum)==hmap.end()&&cursum!=0){
+                hmap[cursum];
+            }
+            else{
+                return true;
+            }
+        }
+        return false;
+}
+--------------------------------------------------------
+//to print all sub arrays we need a map of vector-O(N^2),O(N^2)
+ll findSubarray(vector<ll> arr, int n ) {
+        ll count=0;
+        unordered_map<ll,vector<ll>>hmap;
+        ll sum=0;
+        for(int i=0;i<n;i++){
+            sum+=arr[i];
+            if(sum==0)count++;
+            if(hmap.find(sum)!=hmap.end()){
+                count+=hmap[sum].size();
+            }
+            hmap[sum].push_back(i);
+        }
+        return count;
+    }
+---------------------------------------------------
+//even for count also we can manage with int,int map.
+ll findSubarray(vector<ll> arr, int n ) {
+        ll count=0;
+        unordered_map<ll,ll>hmap;
+        ll sum=0;
+        for(int i=0;i<n;i++){
+            sum+=arr[i];
+            if(sum==0)count++;
+            if(hmap.find(sum)!=hmap.end()){
+                count+=hmap[sum]+1;
+                hmap[sum]++;
+            }
+            else
+            hmap[sum]=0;
+        }
+        return count;
+    }
