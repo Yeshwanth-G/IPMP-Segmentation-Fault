@@ -1,0 +1,27 @@
+//sort the array and for each element apply two sum with target-nums[i].
+//in two sum if we are asked to print all pairs we can directly print them.
+//O(n^2)
+----------------------------------------------------------------------------------------------
+vector<vector<int>> threeSum(vector<int>& nums) {
+        int n=nums.size();
+        vector<vector<int>>ans;
+        int x=required_sum;
+        sort(nums.begin(),nums.end());
+        for(int i=0;i<n;i++){
+            if(i>0&&nums[i]==nums[i-1])continue;
+            int s=i+1,e=n-1,target=x-nums[i];
+            while(s<e){
+                int v=nums[s]+nums[e];
+                if(v<target)s++;
+                else if(v>target)e--;
+                else{
+                    ans.push_back({nums[i],nums[s],nums[e]});
+                    int k=nums[s];
+                    while(s<e&&nums[s]==k)s++;
+                    k=nums[e];
+                    while(s<e&&nums[e]==k)e--;
+                }
+            }
+        }
+        return ans;
+    }
