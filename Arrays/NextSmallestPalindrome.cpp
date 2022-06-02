@@ -1,3 +1,5 @@
+//Approach 1:iterate from num untill you fing palindrome.-O(num*|no. of digits in num|)
+---------------------------------------------------------------------------------------------------------------------
 //Approach havee two pointers one at left and right,keep making right=left untill you reach j=i+1 or j==i,
 //now you have s[i],s[j]..if they are equal then you may increase them or not
 //if current nuber is more than original one you wont replace them else you will increase them and propogate carry.
@@ -39,4 +41,4 @@ string Solution::solve(string s) {
 		    return s;
 		    
 		}
-
+//To get closest palindrome get next smallest previous greatest and take min among them.
