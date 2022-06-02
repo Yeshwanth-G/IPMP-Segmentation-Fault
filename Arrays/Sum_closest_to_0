@@ -1,0 +1,24 @@
+//Similar to two sum-O(nlogn),O(1)
+int closestToZero(int arr[], int n)
+        {
+            sort(arr,arr+n);
+            int s=0,e=n-1,mins=INT_MAX,cursum=0;
+            while(s<e){
+                cursum=arr[s]+arr[e];
+                if(abs(cursum)<=abs(mins)){
+                    if(abs(cursum)==abs(mins))
+                    {
+                        if(cursum>mins)mins=cursum;
+                    }
+                    else mins=cursum;
+                }
+                if(cursum<0){
+                    s++;
+                }
+                else{
+                    e--;
+                }
+            }
+            
+            return mins;
+        }
