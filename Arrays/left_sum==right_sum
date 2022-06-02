@@ -1,0 +1,51 @@
+class Solution{
+    public:
+//Approach 0 : First calculate the total array sum and then keep a track on left sum and check for each element
+whether total sum-leftsum gives right sum;
+//O(N),O(1);
+    int equilibriumPoint(long long a[], int n) {
+    long long nsum=0;
+    if(n==1)return 1;
+        for(int i=0;i<n;i++){
+            nsum+=a[i];
+        }
+        long long cur=0;
+        for(int i=1;i<n-1;i++){
+            cur=cur+a[i-1];
+            long long r=nsum-cur-a[i];
+            if(r==cur)return i+1;
+        }
+        return -1;
+    }
+
+};
+//Approach 1:Two pointer approach,have two pointers one at start and other at end and then then calculate left sum and right
+//and if leftsum is less decrease left pointer and if right sum is left pointer if equal update both the pointers.
+//O(N),O(1);
+class Solution{
+    public:
+    int equilibriumPoint(long long a[], int n) {
+    if(n==1)return 1;
+    int s=0,e=n-1,ls=0,rs=0;
+    while(s<e){
+        if(ls<rs){
+            ls+=a[s];
+            s++;
+        }
+        else if(rs<ls){
+            rs+=a[e];
+            e--;
+        }
+        else{
+            ls+=a[s];
+            rs+=a[e];
+            s++;
+            e--;
+        }
+    }
+    if(s==e&&ls==rs)
+    return e+1;
+    else return -1;
+    }
+
+};
