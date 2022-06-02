@@ -1,0 +1,37 @@
+ //finding no. of ones in every row using binary search-O(nlogm),O(1)
+ int maxOnes (vector <vector <int>> &arr, int N, int m)
+        {
+           int mx=0,maxi=0;
+           for(int i=0;i<N;i++){
+               int s=0,e=m-1,ans=-1;
+               while(s<=e){
+                   int mid=(e+s)/2;
+                   if(arr[i][mid]==1){
+                       ans=mid;
+                       e=mid-1;
+                   }
+                   else s=mid+1;
+               }
+               if(ans!=-1&&m-ans>mx){
+                   mx=m-ans;
+                   maxi=i;
+               }
+           }
+           return maxi;
+        }
+----------------------------------------O(m+n) approach---------------------------------------
+//maintaining a left_most one index
+//for every row check if lft-1 is 1 if so make lft point to left most one in that row ans update maxrow.
+int maxOnes (vector <vector <int>> &arr, int N, int m)
+        {
+           int lftm=m;
+           int maxrow=-1;
+           for(int i=0;i<N;i++){
+               if(arr[i][lftm-1]==0)continue;
+               else{
+                   while(lftm>0&&arr[i][lftm-1]==1)lftm--;
+                   maxrow=i;
+               }
+           }
+           return maxrow;
+        }
