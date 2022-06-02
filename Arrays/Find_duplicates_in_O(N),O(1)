@@ -1,0 +1,15 @@
+//since each element may occur more than 2 times -ve marking wont work.
+vector<int> duplicates(int arr[], int n) {
+        for(int i=0;i<n;i++){
+            int v=arr[i]%n;
+            arr[v]=arr[v]+n;
+        }
+        vector<int>ans;
+        for(int i=0;i<n;i++){
+            if(arr[i]/n>=2){
+                ans.push_back(i);
+            }
+        }
+        if(ans.empty())ans.push_back(-1);
+        return ans;
+    }
