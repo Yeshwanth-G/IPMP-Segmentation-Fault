@@ -1,0 +1,43 @@
+vector<int> find3Numbers(vector<int> arr, int N) {
+       int min=INT_MAX;
+      int sec=INT_MAX;
+      int first;
+      vector<int>ans;
+      for(int i=0;i<N;i++){
+          if(arr[i]<=min){
+              min=arr[i];
+          }else if(arr[i]<=sec){
+              sec=arr[i];
+              first=min;
+          }else{
+              ans.push_back(first);
+              ans.push_back(sec);
+              ans.push_back(arr[i]);
+              return ans;
+          }
+      }
+      return ans;
+-------------------------------------------------------------
+ //O(N),O(1) Approach:iterate through array and if element less than min_so_far update it
+//if element is more than min_so_far that means we found a[i]<a[j] now we only need a[k]
+//store them onto first and sec variables now,if arr[i] is more than second then anser found,else if arr[i]<sec we update second so that probability of answrr increases.
+
+       vector<int>rmx(N);
+       int maxi=INT_MIN;
+       for(int i=N-1;i>=0;i--){
+           maxi=max(arr[i],maxi);
+           rmx[i]=maxi;
+       }
+       int mini=arr[0];
+       vector<int>ans;
+       for(int i=0;i<N;i++){
+           mini=min(arr[i],mini);
+           if(mini!=arr[i]&&rmx[i]!=arr[i]){
+               ans.push_back(mini);
+               ans.push_back(arr[i]);
+               ans.push_back(rmx[i]);
+               return ans;
+           }
+       }
+       return ans;
+    }
