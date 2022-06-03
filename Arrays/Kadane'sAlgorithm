@@ -9,7 +9,7 @@ long long maxSubarraySum(int arr[], int n){
            maxsum=max(maxsum,cursum);
            if(cursum<0){cursum=0;}
        }
-       return maxsum;
+       return maxsum<0?0:maxsum;//if maxsum is negative then empty subarray would be better
        
     }
   -----------------------------------------------------------
@@ -28,6 +28,6 @@ long long maxSubarraySum(int arr[], int n){
            }
            if(cursum<0){cursum=0;st=i+1;end=i+1;}
        }
-       return maxsum;
+       return maxsum<0:?maxsum;
        
     }
