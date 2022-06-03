@@ -1,0 +1,17 @@
+vector<int> downwardDigonal(int n, vector<vector<int>> A)
+	{
+	    vector<int>ans;
+	    int row=0,col=0;
+	    while(row<n&&col<n){
+	        int i=row;
+	        int j=col;
+	        while(i<n&&j>=0){
+	            ans.push_back(A[i][j]);
+	            j--;
+	            i++;
+	        }
+	        if(col+1<n)col++;
+	        else row++;
+	    }
+	    return ans;
+	}
