@@ -1,0 +1,61 @@
+//using extra space
+void booleanMatrix(vector<vector<int> > &matrix)
+    {
+        int R=matrix.size();
+        int C=matrix[0].size();
+        vector<int>row(R,0),col(C,0);
+        for(int i=0;i<R;i++){
+        for(int j=0;j<C;j++){
+            if(matrix[i][j]==1){
+                row[i]=1;
+                col[j]=1;
+            }   
+        }
+        }
+        for(int i=0;i<R;i++){
+            for(int j=0;j<C;j++){
+                if(row[i]==1||col[j]==1)
+                matrix[i][j]=1;
+            }
+        }
+    
+}
+---------------------------------------------------------------
+//first we iteate first row and first col and store its info now we can use this row and cola s auxilary space.
+void booleanMatrix(vector<vector<int> > &matrix)
+    {
+        int R=matrix.size();
+        int C=matrix[0].size(),rowf=0,colf=0;
+        for(int i=0;i<C;i++){
+        if(matrix[0][i]==1){rowf=1;
+            break;
+        }
+        }
+        for(int i=0;i<R;i++){
+        if(matrix[i][0]==1)
+        {
+            colf=1;
+            break;
+        }
+        }
+        for(int i=1;i<R;i++){
+            for(int j=1;j<C;j++){
+                if(matrix[i][j]==1){
+                    matrix[0][j]=1;
+                    matrix[i][0]=1;
+                }
+            }
+        }
+        for(int i=1;i<R;i++){
+            for(int j=1;j<C;j++){
+                if(matrix[i][0]==1||matrix[0][j]==1)
+                matrix[i][j]=1;
+            }
+        }
+        for(int i=0;i<R;i++){
+            
+                if(colf==1)matrix[i][0]=1;
+        }
+        for(int j=0;j<C;j++){
+        if(rowf==1)matrix[0][j]=1;
+        }
