@@ -1,0 +1,28 @@
+
+int main() {
+	int ts;
+	cin>>ts;
+	while(ts--){
+        unordered_map<int,int>hmap;
+	    int n;
+	    cin>>n;
+	    vector<int>v(n);
+	    for(int i=0;i<n;i++){
+	        cin>>v[i];
+	        hmap[v[i]]++;
+	    }
+      //inline comparator,[&hmap] means comparator captures hmap and only after writing like this we can access hamp inside comparator.
+	    sort(v.begin(),v.end(),[&hmap,&v](int a,int b)->bool{
+	    if(hmap[a]>hmap[b])return true;
+        else if(hmap[a]==hmap[b])return a<b;
+         else return false;
+	     }
+	    );
+	    for(int i:v){
+	        cout<<i<<" ";
+	    }
+	    cout<<endl;
+	}
+	return 0;
+}
+//O(Nlogn),O(N)
