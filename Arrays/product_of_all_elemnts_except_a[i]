@@ -1,0 +1,19 @@
+
+//Approach 0 : iterate the arry from left two right and stroe the product of elements
+//to the left of given element and then iterate the array backwards and 
+//multiply the product of elements to the right of given element
+//Time:O(n),space:O(n);
+    vector<long long int> productExceptSelf(vector<long long int>& nums, int n) {
+       vector<long long>ans(n,1);
+       long long p=1;
+       for(int i=1;i<n;i++){
+           p=ans[i-1]*nums[i-1];
+           ans[i]=p;
+       }
+       p=1;
+       for(int i=n-2;i>=0;i--){
+           p=nums[i+1]*p;
+           ans[i]=ans[i]*p;
+       }
+       return ans;
+    }
