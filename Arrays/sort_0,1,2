@@ -1,0 +1,45 @@
+ //Approach 1:count method;
+ void sort012(int a[], int n)
+    {
+        int count0=0,count1=0,count2=0;
+        for(int i=0;i<n;i++){
+            if(a[i]==0)count0++;
+            if(a[i]==1)count1++;
+            if(a[i]==2)count2++;
+        }
+        for(int i=0;i<n;i++){
+            if(count0!=0){
+                a[i]=0;
+                count0--;
+            }
+            else if(count1!=0){
+                a[i]=1;
+                count1--;
+            }
+            else if(count2!=0){
+                a[i]=2;
+                count2--;
+            }
+        }
+        
+    }
+ ---------------------------------------------------
+ //Approach 2:-O(N),O(1)
+ have 3 pointers now we have 4 regions 0-(st-1) has all 0's and st-mid has all 1's and mid-e yet to be processed and (e-1)-n has all 2's
+  void sort012(int a[], int n)
+    {
+    int s=0,m=0,e=n-1;
+    while(m<=e){
+        if(a[m]==0){
+            swap(a[s],a[m]);
+            s++;
+            m++;
+        }
+        else
+        if(a[m]==2){
+            swap(a[m],a[e]);
+            e--;
+        }
+        else m++;
+    }   
+    }
