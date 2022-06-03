@@ -1,0 +1,24 @@
+
+    double waterOverflow(int K, int R, int C) {
+         vector<double>water((R+1)*(R+2)/2,0);
+         water[0]=K;
+         int index=0;
+         for(int row=1;row<=R;row++){
+             int st=(row)*(row+1)/2;
+             int end=((row+1)*(row+2)/2)-1;
+         for(int col=st;col<end;col++){
+             float x=0;
+             if(water[index]>1){
+                 x=water[index]-1;
+                 water[index]=1;
+                 water[col]+=x/2.0;
+                 water[col+1]+=x/2.0;
+             }
+             index++;
+         }
+         }
+         R--;
+         C--;
+         return water[((R*(R+1))/2)+C];
+    }
+    //O(R*R),O(R*R)
