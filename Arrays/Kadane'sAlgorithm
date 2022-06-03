@@ -1,0 +1,33 @@
+//Kadane's
+//whenever we find an array with sum<0 we can ignore it and start a new subarray i.e:reset cursum=0;
+//at every point keep track of maxsum
+long long maxSubarraySum(int arr[], int n){
+       int maxsum=INT_MIN;
+       int cursum=0;
+       for(int i=0;i<n;i++){
+           cursum+=arr[i];
+           maxsum=max(maxsum,cursum);
+           if(cursum<0){cursum=0;}
+       }
+       return maxsum;
+       
+    }
+  -----------------------------------------------------------
+  //to print the sub array
+  long long maxSubarraySum(int arr[], int n){
+        
+       int maxsum=INT_MIN;
+       int cursum=0;
+       for(int i=0;i<n;i++){
+           cursum+=arr[i];
+           if(cursum>maxsum){
+               maxsum=cursum;
+               maxstart=st;
+               maxend=i;
+               end=i;
+           }
+           if(cursum<0){cursum=0;st=i+1;end=i+1;}
+       }
+       return maxsum;
+       
+    }
