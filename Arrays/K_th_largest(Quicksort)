@@ -1,0 +1,43 @@
+//do quick sort until n-k-1 place is fixed;
+int partition(int arr[],int s,int e){
+    int i=s,j=e;
+    int pi=arr[s];
+    while(i<j){
+        while(i<e&&arr[i]<=pi)i++;
+        while(j>=0&&arr[j]>pi)j--;
+        if(i<j)swap(arr[i],arr[j]);
+    }
+    swap(arr[s],arr[j]);
+    return j;
+}
+ void quicksort(int arr[],int s,int e,vector<int>&ans,int k,int n){
+     if(s<=e){
+         int p=partition(arr,s,e);
+         if(p==n-k-1){
+             for(int i=p+1;i<n;i++){
+                 ans.push_back(arr[i]);
+             }
+             return;
+         }
+         if(p<n-k-1)quicksort(arr,p+1,e,ans,k,n);
+         else quicksort(arr,s,p-1,ans,k,n);
+     }          
+ }
+	vector<int> kLargest(int arr[], int n, int k) {
+	    int s=0,e=n-1;
+	    vector<int>ans;
+	    
+	    quicksort(arr,0,n-1,ans,k,n);
+	    sort(ans.begin(),ans.end(),greater<int>());
+	    return ans;
+	}//O(N^2) worst case;O(N) best case;
+----------------------------------------------------------------
+//default priority queue implementation is max-heap;
+vector<int> kLargest(int arr[], int n, int k) {
+	    int s=0,e=n-1;
+	    vector<int>ans;
+	    priority_queue<int>pq;
+	    for(int i=0;i<n;i++)pq.push(arr[i]);
+	    for(int i=0;i<k;i++)ans.push_back(pq.top()),pq.pop();
+	    return ans;
+	}//klogn;
