@@ -1,0 +1,47 @@
+//when there are only positive elements-O(N),O(1)
+vector<int> subarraySum(int arr[], int n, long long s)
+    {
+        int st=0,end=0;
+        long long cursum=arr[end];
+        vector<int>ans;
+        while(end<n&&st<n){
+            if(cursum==s){
+                ans.push_back(st+1);
+                ans.push_back(end+1);
+                return ans;
+            }
+            while(end<n&&cursum<s){
+                end++;
+                cursum+=arr[end];
+            }
+            while(st<end&&cursum>s){
+                cursum-=arr[st];
+                st++;
+            }
+            if(st==end&&cursum>s){
+                st++;
+                end++;
+                if(st<n)cursum=arr[st];
+            }
+        }
+        ans.push_back(-1);
+        return ans;
+    }
+    -------------------------------------------------------------------
+    //Now if array has negatives.
+    //using extra space.
+    int subArraySum(int arr[], int n, int sum)
+    {
+    	int cursum=0,count=0;
+    	unordered_map<int,int>hmap;
+    	for(int i=0;i<n;i++){
+    	   cursum+=arr[i];
+    	   if(cursum==sum){count++;}
+    	   if(hmap.find(cursum-sum)!=hmap.end())count+=hmap[cursum-sum];
+    	   hmap[cursum]++;
+    	}
+    	return count;
+    }
+    -----------------------------------------------------------------------
+  
+  
