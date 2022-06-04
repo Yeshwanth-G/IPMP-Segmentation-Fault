@@ -1,0 +1,29 @@
+//Approach 1:two loops check freq. of each element
+//Approach 2:sort and find freq.-O(NLOGN),O(1)
+//Approach 3:use hashmap-O(N),O(N)
+//Efficient-Moore's voting algo.
+------------------------------------------------------------------
+//cancel an element corresponding to each occurence of majority element.
+int majorityElement(int a[], int n)
+    {
+        int count=1,mj=a[0];
+        for(int i=1;i<n;i++){
+            if(a[i]==mj){
+                count++;
+            }
+            else{
+                count--;
+            }
+            if(count==0){
+                count=1;
+                mj=a[i];
+            }
+        }
+        count=0;
+        for(int i=0;i<n;i++){
+            if(mj==a[i])count++;
+        }
+        if(count>n/2)return mj;
+        return -1;
+        
+    }
