@@ -1,0 +1,73 @@
+//Recursion
+int answer(int *arr,int n){
+	    if(n<=0)return 0;
+	    if(n==1)return arr[0];
+	    
+	    return max(answer(arr,n-2)+arr[n-1],answer(arr,n-1));
+	}
+	int findMaxSum(int *arr, int n) {
+	    return answer(arr,n);
+  }
+  ------------------------------------------
+   int dp[1000000];
+	int answer(int *arr,int n){
+	    if(n<=0)return 0;
+	    if(n==1)return arr[0];
+	    if(dp[n]!=-1)return dp[n];
+	    return dp[n]=max(answer(arr,n-2)+arr[n-1],answer(arr,n-1));
+	}
+	int findMaxSum(int *arr, int n) {
+	    memset(dp,-1,sizeof(dp));
+	    return answer(arr,n);
+        }
+  -------------------------------------------
+  //Memoized
+   vector<int>dp;
+	int answer(int *arr,int n){
+	    if(n<=0)return 0;
+	    if(n==1)return arr[0];
+	    if(dp[n]!=-1)return dp[n];
+	    return dp[n]=max(answer(arr,n-2)+arr[n-1],answer(arr,n-1));
+	}
+	int findMaxSum(int *arr, int n) {
+	    dp=vector<int>(n+1,-1);
+	    return answer(arr,n);
+        }
+  ------------------------------------------
+  //Tabulated-O(N),O(N)
+  int answer(int *arr,int n){
+	    if(n<=0)return 0;
+	    if(n==1)return arr[0];
+	    int dp[n+1];
+	    dp[0]=arr[0];
+	    dp[1]=max(arr[0],arr[1]);
+	    for(int i=2;i<n;i++){
+	        dp[i]=max(dp[i-2]+arr[i],dp[i-1]);
+	    }
+	    return dp[n-1];
+	}
+	int findMaxSum(int *arr, int n) {
+	   // memset(dp,-1,sizeof(dp));
+	    return answer(arr,n);
+        }
+        
+ ---------------------------------------
+ //space optimised
+ //from above solution we are clear tha we only need two values dp[i-1],dp[i-2] so we can just use two variables instead of entire array. 
+ //O(N),O(1)
+ int answer(int *arr,int n){
+	    if(n<=0)return 0;
+	    if(n==1)return arr[0];
+	    int p0=arr[0];
+	    int p1=max(arr[0],arr[1]);
+	    for(int i=2;i<n;i++){
+	        int x=max(p0+arr[i],p1);
+	        p0=p1;
+	        p1=x;
+	    }
+	    return p1;
+	}
+	int findMaxSum(int *arr, int n) {
+	   // memset(dp,-1,sizeof(dp));
+	    return answer(arr,n);
+        }
