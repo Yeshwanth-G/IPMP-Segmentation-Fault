@@ -1,0 +1,51 @@
+//just find maxleft,max_right and find water level that can be stored at this point.
+long long trappingWater(int arr[], int n){
+        vector<long long>maxr(n);
+       maxr[n-1]=arr[n-1];
+        for(int i=n-2;i>=0;i--){
+            if(arr[i]>maxr[i+1])maxr[i]=arr[i];
+            else maxr[i]=maxr[i+1];
+        }
+       long long msf=arr[0];
+        long long ans=0;
+        for(int i=1;i<n;i++){
+            int y=min(msf,maxr[i]);
+            if(y>arr[i]){
+            ans+=(y)-arr[i];
+            }
+            if(arr[i]>msf)msf=arr[i];
+        }
+        return ans;
+    }
+----------------------------------------------------------------------------
+//Two pointer technique,we find maxleft,maxright on the go
+//Idea:we dont need to find maxright if we know that maxleft is less than some maxright
+//similarly we dont need to find maxleft if we know that maxright is less than some maxleft.
+//TechDose video
+long long trappingWater(int arr[], int n){
+        int i=1,j=n-2;
+        long long ans=0;
+        int mxl=arr[0],mxr=arr[n-1];
+        while(i<=j){
+            while(i<n&&arr[i]>=mxl)mxl=max(mxl,arr[i]),i++;
+            while(j>=0&&arr[j]>=mxr)mxr=arr[j],j--;
+            if(i<=j){
+                if(mxr>mxl){
+                    ans+=mxl-arr[i];
+                    i++;
+                }
+                else if(mxr<mxl){
+                    ans+=mxr-arr[j];
+                    j--;
+                }
+                else{
+                    ans+=mxl-arr[i];
+                    if(i!=j)ans+=mxr-arr[j];
+                    i++;
+                    j--;
+                }
+            }
+            
+        }
+        return ans;
+    }
