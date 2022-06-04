@@ -1,0 +1,16 @@
+//find out end point of decreasing sequence and buy at that point ,find out end point increasing sequence sell at that point.
+int maxProfit(vector<int>& price) {
+        vector<pair<int,int>>v;
+     int i=0,n=price.size(),ans=0;
+     while(i<n){
+        pair<int,int>p;
+        while(i+1<n&&price[i+1]<=price[i])i++;
+        p.first=i;
+        while(i+1<n&&price[i+1]>=price[i])i++;
+        p.second=i++;
+        if(p.first<p.second&&p.second<n){
+            ans+=price[p.second]-price[p.first];
+        }
+     }
+        return ans;
+    }
