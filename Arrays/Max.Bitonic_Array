@@ -1,0 +1,72 @@
+//Approach:Maintain two arrays one to store the length of increasing array ending at that point
+//and the other to store length of decreasing array starting at that point
+//  and then iterate arrays simultaneously to find bitonic length;
+//O(N),O(N)
+
+int bitonic(vector<int> arr, int n) {
+	    // code here
+	    int in[n],de[n];
+	    in[0]=1;
+	    de[n-1]=1;
+	    for(int i=1;i<n;i++){
+        if(arr[i]>=arr[i-1])in[i]=in[i-1]+1;
+        else in[i]=1;
+	}
+	for(int i=n-2;i>=0;i--){
+	    if(arr[i+1]<=arr[i])de[i]=de[i+1]+1;
+	    else de[i]=1;
+	}
+	int max=INT_MIN;
+	for(int i=0;i<n;i++){
+	    int s=in[i]+de[i]-1;
+	    if(s>max)max=s;
+	}
+	return max;
+}
+-------------------------------------------------------------------------
+//no need of two arrays.
+	int bitonic(vector<int> arr, int n) {
+	    // code here
+	    int in[n];
+	    in[0]=1;
+	    
+	    for(int i=1;i<n;i++){
+        if(arr[i]>=arr[i-1])in[i]=in[i-1]+1;
+        else in[i]=1;
+	}
+	in[n-1]++;
+	int temp=1;
+	for(int i=n-2;i>=0;i--){
+	    if(arr[i+1]<=arr[i])in[i]+=temp+1,temp++;
+	    else in[i]+=1,temp=1;
+	}
+	int max=INT_MIN;
+	for(int i=0;i<n;i++){
+	    int s=in[i]-1;
+	    if(s>max)max=s;
+	}
+	return max;
+}
+-------------------------------------------------------------------------------
+//optimised-O(N),O(1)
+//start at an index find bitonic length and its endpoint now you can start finding bitonic length from previous ending point.
+int bitonic(vector<int> arr, int n) {
+	    // code here
+	    int in[n],de[n];
+	    in[0]=1;
+	    de[n-1]=1;
+	    for(int i=1;i<n;i++){
+        if(arr[i]>=arr[i-1])in[i]=in[i-1]+1;
+        else in[i]=1;
+	}
+	for(int i=n-2;i>=0;i--){
+	    if(arr[i+1]<=arr[i])de[i]=de[i+1]+1;
+	    else de[i]=1;
+	}
+	int max=INT_MIN;
+	for(int i=0;i<n;i++){
+	    int s=in[i]+de[i]-1;
+	    if(s>max)max=s;
+	}
+	return max;
+}
