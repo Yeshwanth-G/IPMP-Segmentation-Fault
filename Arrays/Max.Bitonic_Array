@@ -51,22 +51,20 @@ int bitonic(vector<int> arr, int n) {
 //optimised-O(N),O(1)
 //start at an index find bitonic length and its endpoint now you can start finding bitonic length from previous ending point.
 int bitonic(vector<int> arr, int n) {
-	    // code here
-	    int in[n],de[n];
-	    in[0]=1;
-	    de[n-1]=1;
-	    for(int i=1;i<n;i++){
-        if(arr[i]>=arr[i-1])in[i]=in[i-1]+1;
-        else in[i]=1;
-	}
-	for(int i=n-2;i>=0;i--){
-	    if(arr[i+1]<=arr[i])de[i]=de[i+1]+1;
-	    else de[i]=1;
-	}
-	int max=INT_MIN;
-	for(int i=0;i<n;i++){
-	    int s=in[i]+de[i]-1;
-	    if(s>max)max=s;
-	}
-	return max;
+	    if(n==0)return 0;
+	    if(n==1)return 1;
+	   int j=0;
+	   int st=0;
+	   int nst=0;
+	   int mx=INT_MIN;
+	   while(j<n-1){
+	       while(j+1<n&&arr[j]<=arr[j+1])j++;
+	       while(j+1<n&&arr[j]>=arr[j+1]){
+	           if(arr[j]>arr[j+1])nst=j+1;
+	           j++;
+	       }
+	       mx=max(mx,j-st+1);
+	       st=nst;
+	   }
+	   return mx;
 }
