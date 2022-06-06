@@ -1,0 +1,17 @@
+//App1:have a hashset to store visited nodes;
+//App2:modify values to mark it visited.
+//Floyd's cycle detection.
+bool detectLoop(Node* head)
+    {
+        Node*slow=head,*fast=head;
+        while(slow!=nullptr&&fast!=nullptr&&fast->next){
+            slow=slow->next;
+            fast=fast->next->next;
+            if(slow==fast)return true;
+        }
+        return false;
+    }
+----------------------------------------------------
+//proof for ther meeting complusorily.
+//since slow and fast pointer will keep on revolving in loop 
+//and the relative distance between them will keep on decreasing at some point it becomes 0 and that means they met each other.
