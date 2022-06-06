@@ -1,0 +1,12 @@
+//App1:calculate length and  then go to n/2th node;
+//two pointer
+int getMiddle(Node *head)
+    {
+        
+        Node*s=head,*f=head;
+        while(s&&f&&f->next){
+            s=s->next;
+            f=f->next->next;
+        }
+        return s->data;
+    }
