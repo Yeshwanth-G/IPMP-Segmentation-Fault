@@ -1,0 +1,66 @@
+//iteraative approach
+//have two pointer prev1 pointing to current head position fromwhere we should reverse,
+//prev2 pointing to node before prev1 so that we can set prev2->next afetr reversing prev1;
+node* reverse(node*head){
+        node*c=head,*p=nullptr,*nxt;
+        while(c){
+            nxt=c->next;
+            c->next=p;
+            p=c;
+            c=nxt;
+        }
+        return p;
+    }
+    struct node *reverse (struct node *head, int k)
+    { 
+      if(head==nullptr||head->next==nullptr)return head;
+      node*p=head,*prev1=head,*prev2=nullptr;
+      int count=0;
+      while(p){
+          count++;
+          if(count%k==0||p->next==nullptr){                              --->since we need to reverse the extra nodes also we have put p->next==nullptr
+              node*s=p->next;
+              p->next=nullptr;
+              node*x=reverse(prev1);
+              p=prev1;
+              prev1->next=s;
+              if(prev2){prev2->next=x;}
+              else head=x;
+              prev2=prev1;
+              prev1=s;
+          }
+          p=p->next;
+      }
+      return head;
+    }
+    ------------------------------------------------------------------------------------------------
+    //recursive
+    node* reverse(node*head){
+        node*c=head,*p=nullptr,*nxt;
+        while(c){
+            nxt=c->next;
+            c->next=p;
+            p=c;
+            c=nxt;
+        }
+        return p;
+    }
+    struct node *reverse (struct node *head, int k)
+    { 
+      if(head==nullptr||head->next==nullptr)return head;
+      node*p=head;
+      int count=0;
+      while(p){
+          count++;
+          if(count==k){
+              node*s=p->next;
+              p->next=nullptr;
+              node*x=reverse(head);
+              head->next=reverse(s,k);
+              return x;
+          }
+          p=p->next;
+      }
+      head=reverse(head);               ---->reverse all nodes if n<k
+      return head;
+    }
