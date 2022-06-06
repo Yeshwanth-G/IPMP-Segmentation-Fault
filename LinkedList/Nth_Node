@@ -1,0 +1,29 @@
+//two pointers have a pointer a move them simultaneosly if count==n reset one pointer to head and when opne pointer reaches null other will be at nth node from end;
+int getNthFromLast(Node *head, int n)
+{
+    int count=0;
+    Node*p1=head,*p2=head;
+    while(p1!=nullptr&&p2!=nullptr){
+        p1=p1->next;
+        p2=p2->next;
+        count++;
+        if(count==n)p1=head;
+    }
+    return p1==nullptr?-1:p1->data;
+}
+-----------------------------------------------------------
+//Recursive
+void answer(Node*head,int &count,int n,Node*&ans){
+    if(head==nullptr)return;
+    answer(head->next,count,n,ans);
+    count++;
+    if(count==n)ans=head;
+}
+int getNthFromLast(Node *head, int n)
+{
+    Node*ans=nullptr;
+    int count=0;
+    answer(head,count,n,ans);
+    return ans==nullptr?-1:ans->data;
+    
+}
