@@ -1,5 +1,6 @@
 //App1:have a hashset to store visited nodes;
 //App2:modify values to mark it visited.
+//App3:Have pointer and keep moving it and count no. nodes between heaad and pointer now if count is less than prevcount then we found loop.-O(N^2)
 //Floyd's cycle detection.
 bool detectLoop(Node* head)
     {
