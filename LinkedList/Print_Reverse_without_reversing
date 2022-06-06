@@ -1,0 +1,6 @@
+//uisng recursion only we can do this.
+void answer(Node*head){
+if(!head)return;
+answer(head->next);
+cout<<head->data<<" ";
+}
