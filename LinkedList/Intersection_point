@@ -1,0 +1,18 @@
+//App1:for each node in l1 check if its present in l2(compare addresses.
+//App2:marking visited
+//using hashmap.
+------------------------------------------------------------------------
+//two pointers
+int intersectPoint(Node* head1, Node* head2)
+{
+    Node*p=head1,*q=head2;
+    while(p!=nullptr&&q!=nullptr&&p!=q){
+        p=p->next;
+        q=q->next;
+        if(p==nullptr&&q==nullptr)return -1;
+        if(p==nullptr)p=head2;
+        else if(q==nullptr)q=head1;
+    }
+    if(p==q)return p->data;
+    return -1;
+}
