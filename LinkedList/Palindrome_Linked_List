@@ -1,0 +1,33 @@
+//App1:traverse list store elements and compare from reverse of vector.
+//reverse frm middle and check if both hals equal.
+Node* reverse(Node*head){
+        Node*c=head,*p=nullptr,*n;
+        while(c!=nullptr){
+            n=c->next;
+            c->next=p;
+            p=c;
+            c=n;
+        }
+        return p;
+    }
+    bool isPalindrome(Node *head)
+    {
+        Node*f=head,*s=head,*prev=nullptr;
+        while(f&&f->next){
+            f=f->next->next;
+            prev=s;
+            s=s->next;
+        }
+        if(prev==nullptr)return true;
+        prev->next=nullptr;
+        Node*p=reverse(s);
+        Node*q=head;
+        while(q&&p){
+            if(p->data!=q->data)return false;
+            p=p->next;
+            q=q->next;
+        }
+       return true;
+    }
+   ------------------------------
+   //Recursive
