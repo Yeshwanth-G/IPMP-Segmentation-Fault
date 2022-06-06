@@ -1,0 +1,21 @@
+//go untill kth node and store it and traverse till last node
+//now put kthnode next as null,lastnode next as head and update head.
+//O(N)
+    Node* rotate(Node* head, int k)
+    {
+      int count=0;
+      Node*p=head;
+      while(p!=nullptr){
+          count++;
+          if(count==k)break;
+          p=p->next;
+      }
+      if(p->next==nullptr)return head;
+      Node*s=p->next;
+      Node*x=s;
+      p->next=nullptr;
+      while(s&&s->next)s=s->next;
+      s->next=head;
+      head=x;
+      return head;
+    }
