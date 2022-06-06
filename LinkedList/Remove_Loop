@@ -1,0 +1,43 @@
+void removeloop(Node*p,Node*s,Node*f){
+        s=p;
+        Node*prev;
+        while(s!=f){
+            s=s->next;
+            f=f->next;
+        }
+        while(s->next!=f)s=s->next;//need two loops to handle case when head itsleft is starting point of node.
+        s->next=nullptr;
+        
+    }
+    void removeLoop(Node* head)
+    {
+        Node*s=head,*f=head;
+        while(s!=nullptr&&f!=nullptr&&f->next){
+            s=s->next;
+            f=f->next->next;
+            if(f==s){
+                removeloop(head,f,s);
+                return;
+            }
+        }
+    }
+   -----------------------------------------------------
+   //proof for finding first loop starting point.
+   distance by fast->df
+   distance by slow->ds;
+   now,df=2*ds;
+   assume,
+   they met after distance x from starting point of loop 
+   and y be distance of starting point of loop form head;
+   
+   df=m*C+x+y    -->it does some m rounds and then x distance and meets slow
+   ds=n*C+x+y;
+   df=2*ds
+   m*C+x+y=2(n*C+x+y)
+   (m-2n)C=x+y;    -->since x+y>0 m-2n>0 say some k
+   kC=x+y
+   y=kC-x;
+   so traversing a distane of y is same as traversing k rounds and x distance backward
+   so they meet at starting point for sure;
+   //fast wil do some rounds and meet .
+   
