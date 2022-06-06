@@ -1,0 +1,23 @@
+ //recursive
+ struct Node* reverseList(struct Node *head)
+    {
+        if(head==nullptr||head->next==nullptr)return head;
+         Node*p=head->next;
+         Node*h=reverseList(head->next);
+         head->next=p->next;
+        p->next=head;
+          return h;
+        }
+  ----------------------------------------------------------------
+  //iterative
+       struct Node* reverseList(struct Node *head)
+    {
+        Node*c=head,*p=nullptr,*n=nullptr;
+        while(c!=nullptr){
+            n=c->next;
+            c->next=p;
+            p=c;
+            c=n;
+        }
+        return p;
+    }
