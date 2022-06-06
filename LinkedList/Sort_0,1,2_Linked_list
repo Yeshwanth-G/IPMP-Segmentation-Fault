@@ -1,0 +1,99 @@
+//if 0 insert before head,if 1 move, if 2 insert after tail.
+//O(N),O(1)
+Node* segregate(Node *head) {
+      Node*p=head;
+      while(p&&p->next)p=p->next;
+      Node*tail=p,*prev=nullptr;
+      Node*s=head;
+      while(s!=tail){
+          if(s->data==0){
+              if(s==head)prev=s,s=s->next;
+              else {
+                  Node*x=s;
+                  prev->next=x->next;
+                  x->next=head;
+                  head=x;
+                  s=prev->next;
+              }
+          }
+          else if(s->data==1)prev=s,s=s->next;
+          else{
+                  Node*x=s;
+                  if(prev!=nullptr)prev->next=x->next;
+                  else head=head->next;
+                  x->next=tail->next;
+                  tail->next=x;
+                  if(prev)s=prev->next;
+                  else {
+                      s=head;
+                  }
+          }
+      }
+      if(s->data==0){
+          prev->next=s->next;
+          s->next=head;
+          head=s;
+      }
+      return head;
+    }
+ ---------------------------------------------------------------------------------------------------------------------
+ //have 3 pointers h0,h1,h2 ans attach 0's,1's,2's to them and finally link them properly.
+ //O(n)
+ Node* segregate(Node *head) {
+    Node*h0=nullptr,*h1=nullptr,*h2=nullptr,*t0=nullptr,*t1=nullptr,*t2=nullptr;
+    Node*p=head;
+    while(p!=nullptr){
+        Node*s=p->next;
+        if(p->data==0){
+            p->next=nullptr;
+            if(t0==nullptr)h0=t0=p;
+            else{
+                t0->next=p;
+                t0=p;
+            }
+        }if(p->data==1){
+            p->next=nullptr;
+            if(t1==nullptr)h1=t1=p;
+            else{
+                t1->next=p;
+                t1=p;
+            }
+        }if(p->data==2){
+            p->next=nullptr;
+            if(t2==nullptr)h2=t2=p;
+            else{
+                t2->next=p;
+                t2=p;
+            }
+        }
+        p=s;
+    }
+    Node*a=h2,*b=h2,*c=h0;
+    if(h2!=nullptr){
+        if(t1!=nullptr){
+            t1->next=h2;
+            if(h0==nullptr)return h1;
+            else {
+                t0->next=h1;
+                return h0;
+            }
+            
+        }
+        else{
+            if(h0==nullptr)return h2;
+            else{
+                t0->next=h2;
+                return h0;
+            }
+        }
+    }
+    else if(h1!=nullptr){
+        if(h0==nullptr)return h1;
+        else{
+            t0->next=h1;
+            return h0;
+        }
+    }
+    else return h0;
+
+    }
