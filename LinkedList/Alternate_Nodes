@@ -1,0 +1,19 @@
+//Iterative
+void deleteAlt(struct Node *head){
+    Node*p=head;
+    while(p!=nullptr&&p->next){
+     Node*s=p->next;
+     p->next=s->next;
+     free(s);
+     p=p->next;
+    }
+}
+--------------------------------------------------------
+//Recursive
+void deleteAlt(struct Node *head){
+    if(head==nullptr||head->next==nullptr)return;
+    Node*s=head->next;
+    head->next=s->next;
+    free(s);
+    deleteAlt(head->next);
+}
