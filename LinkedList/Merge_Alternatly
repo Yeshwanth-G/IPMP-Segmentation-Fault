@@ -1,0 +1,14 @@
+
+void mergeList(struct Node **a, struct Node **b)
+{
+    struct Node*p=*a,*q=*b ;
+     while(p!=NULL&&q){
+             Node*s=q->next;
+             Node*r=p->next;
+             q->next=p->next;
+             p->next=q;
+             p=r;
+             q=s;
+     }
+     *b=q;
+}
