@@ -1,0 +1,71 @@
+//App1:Attach all evens to one pointer,attach all 1's to another pointer.
+//link them properly.
+//App2:Insert all evens after head and move if odd occurs.
+//we can create a dummy node so that we can avoid checks.
+
+---------------------------------------------------------------------------------
+Node* divide(int N, Node *head){
+         Node*h0=nullptr,*t0=nullptr,*h1=nullptr,*t1=nullptr;
+        Node*p=head;
+        while(p){
+            Node*s=p->next;
+             p->next=nullptr;
+            if(p->data%2==0){
+                if(h0==nullptr){
+                    h0=p;
+                    t0=p;
+                }
+                else{
+                    t0->next=p;
+                    t0=p;
+                }
+            }
+            else{
+                if(h1==nullptr){
+                    h1=p;
+                    t1=p;
+                }
+                else{
+                    t1->next=p;
+                    t1=p;
+                }
+            }
+            p=s;
+        }
+        if(h1==nullptr)return h0;
+        else{
+            if(h0==nullptr)return h1;
+            else{
+                t0->next=h1;
+                return h0;
+            }
+        }
+        return nullptr;
+        }
+ -------------------------------------------------------------------
+ Node* divide(int N, Node *head){
+        Node*d=new Node(-1);
+        d->next=head;
+        Node*p=head,*prev=d;
+        head=d;
+        while(p){
+            Node*s=p->next;
+            if(p->data%2==0){
+                if(p==head->next){
+                    prev=p;
+                    head=head->next;
+                    p=p->next;
+                    continue;
+                }
+                prev->next=p->next;
+                p->next=head->next;
+                head->next=p;
+                head=p;
+            }
+            else{
+                prev=p;
+            }
+            p=s;
+        }
+        return d->next;
+    }
