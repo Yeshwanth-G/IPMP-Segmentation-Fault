@@ -1,0 +1,30 @@
+//if we are asked just make a copy we can make now problem is copying random pointers.
+//so we just insert new after the old node and now newnode->random=prevnode->random->next;
+//once we set random pointers we can separate it to two new linked lists.
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        if(!head)return NULL;
+     Node*res,*p=head,*q;
+        while(p!=NULL){
+            Node*t=new Node(p->val);
+            Node*s=p->next;
+            p->next=t;
+            t->next=s;   
+            p=s;
+        }
+        res=head->next;
+        p=head;
+        while(p&&p->next){
+            Node*x=p->next;
+            if(p->random)x->random=p->random->next;
+            p=x->next;
+        }
+        p=head;
+        while(p&&p->next){
+            Node*s=p->next;
+            p->next=s->next;
+            p=s;
+        }
+        return res;
+    }
