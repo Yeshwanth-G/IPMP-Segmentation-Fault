@@ -5,7 +5,7 @@ public:
         long long x=n&((long long)n-1);
         return x==0;
     }
-};
+};//O(1),O(1)
 
 
 class Solution {
@@ -15,4 +15,11 @@ public:
         long long x=n&~((long long)n-1);
         return x==n;
     }
-};
+};O(1),O(1)
+
+bool isPowerofTwo(long long n){
+        if(n==0)return false;
+        double d=log2(n);
+        if(ceil(d)==floor(d))return true;
+        return false;
+    }O(logn),O(1)
