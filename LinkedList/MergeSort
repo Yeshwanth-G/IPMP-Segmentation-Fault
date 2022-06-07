@@ -1,0 +1,38 @@
+
+    Node* merge(Node*h1,Node*h2){
+        Node*d=new Node(-1);
+        Node*t=d;
+        while(h1&&h2){
+            if(h1->data<=h2->data){
+                Node*x=h1->next;
+                t->next=h1;
+                h1->next=nullptr;
+                t=h1;
+                h1=x;
+            }
+            else{
+                Node*x=h2->next;
+                t->next=h2;
+                h2->next=nullptr;
+                t=h2;
+                h2=x;
+            }
+        }
+        if(h1)t->next=h1;
+        if(h2)t->next=h2;
+        return d->next;
+    }
+    Node* mergeSort(Node* head) {
+        if(head==nullptr||!head->next)return head;
+        Node*s=head,*f=head,*prev=nullptr;
+        while(f&&f->next){
+            f=f->next->next;
+            prev=s;
+            s=s->next;
+        }
+        prev->next=nullptr;
+        Node*p1=mergeSort(head);
+        Node*p2=mergeSort(s);
+        return merge(p1,p2);
+    }
+};
