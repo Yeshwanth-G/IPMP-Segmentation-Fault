@@ -1,4 +1,6 @@
 //most significant is at starting.
+//simpler version is reverse nodes and do it.
+
 ListNode* prop(ListNode*head,ListNode*p,int& carry,ListNode*x){
         if(head==nullptr)return head;
         if(head==p){
