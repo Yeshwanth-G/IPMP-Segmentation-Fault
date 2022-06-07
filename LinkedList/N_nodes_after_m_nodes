@@ -1,0 +1,26 @@
+void linkdelete(struct Node  *head, int m, int n)
+    {
+        if(head==NULL)return;
+        int count=1;
+        Node*p=head,*s;
+        while(p){
+            if(count<m)p=p->next;
+            else
+            if(count==m){
+                s=p;
+                p=p->next;
+            }
+            else if(count==m+n){
+                s->next=p;
+                count=1;//reset count to skip next n elements.
+                p=p->next;
+            }
+            else
+            if(count<n){
+                Node*r=p->next;
+                delete(p);
+                p=r;
+            }
+            count++;
+        }
+    }
