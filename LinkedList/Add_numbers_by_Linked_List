@@ -1,0 +1,68 @@
+//most significant is at starting.
+ListNode* prop(ListNode*head,ListNode*p,int& carry,ListNode*x){
+        if(head==nullptr)return head;
+        if(head==p){
+            ListNode*s=new ListNode((p->val+carry)%10);
+            s->next=x;
+            carry=(p->val+carry)/10;
+            return s;
+        }
+        ListNode*s=prop(head->next,p,carry,x);
+        ListNode*sp=new ListNode((head->val+carry)%10);
+        carry=(head->val+carry)/10;
+        sp->next=s;
+        
+        return sp;
+    }
+    ListNode*add(ListNode*h1,ListNode*h2,int &carry){
+        if(h1==nullptr||h2==nullptr)return nullptr;
+        ListNode*x=add(h1->next,h2->next,carry);
+        int temp=(carry+h1->val+h2->val);
+        carry=temp/10;
+        ListNode*p=new ListNode(temp%10);
+        p->next=x;
+        return p;
+    }
+    ListNode* addTwoNumbers(ListNode* n1, ListNode* n2) {
+        int l1=0,l2=0,d;
+        ListNode*p=n1,*q=n2;
+        while(p!=NULL||q!=NULL){
+            if(p){
+            l1++;
+            p=p->next;
+            }
+            if(q){
+            l2++;
+            q=q->next;
+            }
+        }
+        ListNode*p1=NULL,*ch=nullptr;
+        if(l1>l2){
+            int d=l1-l2;
+            ch=n1;
+            while(d>0){
+                p1=n1;
+                n1=n1->next;
+                d--;
+            }
+        }
+        else if(l2>l1){
+            ch=n2;
+            int d=l2-l1;
+            while(d>0){
+                p1=n2;
+                n2=n2->next;
+                d--;
+            }
+        }
+        int carry=0;
+        ListNode*x=add(n1,n2,carry);
+        ListNode*head=prop(ch,p1,carry,x);
+        if(!head)head=x;
+        if(carry!=0){
+            ListNode*r=new ListNode(carry);
+            r->next=head;
+            head=r;
+        }
+        return head;
+    }
