@@ -1,0 +1,28 @@
+//Recursion
+    Node* pairWiseSwap(struct Node* head) 
+    {
+        if(head==nullptr||head->next==nullptr)return head;
+        Node*p=head->next;
+        Node*s=p->next;
+        p->next=head;
+        head->next=pairWiseSwap(s);
+        return p;
+    }
+-------------------------------------------------
+//iterative.
+Node* pairWiseSwap(struct Node* head) 
+    {
+        if(head==nullptr||head->next==nullptr)return head;
+        Node*x=head,*prev=nullptr;
+        while(x&&x->next){
+        Node*p=x->next;
+        Node*s=p->next;
+        p->next=x;
+        x->next=s;
+        if(prev)prev->next=p;
+        else head=p;
+        prev=x;
+        x=s;
+        }
+        return head;
+    }
