@@ -1,0 +1,22 @@
+//spit linked list into two parts such that alternating nodes are in different parts
+
+void alternatingSplitList(struct Node* head) 
+{
+    Node*h=nullptr,*t=nullptr,*p=head;
+    while(p&&p->next){
+     Node*s=p->next;
+     p->next=s->next;
+     s->next=nullptr;
+     if(t==nullptr){
+         h=s;
+         t=s;
+     }
+     else{
+         t->next=s;
+         t=s;
+     }
+     p=p->next;
+    }
+    a=head;
+    b=h;
+}
