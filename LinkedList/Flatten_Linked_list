@@ -1,0 +1,21 @@
+//Iterative.
+    Node* flatten(Node* head) {
+        Node*p=head;
+        if(!head)return NULL;
+        while(p){
+            Node*s=p->child;
+            while(s!=NULL&&s->next){
+                s=s->next;
+            }
+            Node*r=p->next;
+            if(s!=NULL){
+                p->next=p->child;
+                p->child->prev=p;
+                p->child=NULL;
+                s->next=r;
+                if(r)r->prev=s;
+            }
+            p=p->next;
+        }
+        return head;
+    }
