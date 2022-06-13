@@ -19,3 +19,22 @@ int dp[101][101];
         return answer(1,N-1,arr);
     }
 };
+----------------------------------------------------------------------------------------
+//Tabulated.
+    int matrixMultiplication(int N, int arr[])
+    {
+        int dp[N][N];
+        memset(dp,0,sizeof(dp));
+        for(int l=2;l<N;l++){
+            for(int j=1;j<N;j++){
+                if(j+l>N){dp[j][l]=0;continue;}
+                int mn=INT_MAX;
+                for(int k=1;k<l;k++){
+                    int x=dp[j][k]+dp[j+k][l-k]+arr[j-1]*arr[j+k-1]*arr[j+l-1];
+                    mn=min(mn,x);
+                }
+                dp[j][l]=mn;
+            }
+        }
+        return dp[1][N-1];
+    }
