@@ -1,4 +1,4 @@
-//Recursion-O(n*n)
+//Recursion-O(exponential)
 int answer(vector<int>&nums,int s){
         if(s==nums.size()-1)return 0;
         if(s>=nums.size()||nums[s]==0)return INT_MAX;
@@ -14,7 +14,7 @@ int answer(vector<int>&nums,int s){
         return x==INT_MAX?-1:x;
     }
 ----------------------------------------------------------
-//Memoization-O(n)
+//Memoization-O(n*n)
 class Solution {
 public:
     int dp[100001];
@@ -36,7 +36,7 @@ public:
     }
 };
 ----------------------------------------------------------
-//tabulation-O(n)
+//tabulation-O(n*n)
 int jump(vector<int>& nums) {
         nums.back()=0;
         int n=nums.size();
