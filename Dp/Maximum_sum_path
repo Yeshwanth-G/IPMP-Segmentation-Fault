@@ -1,0 +1,17 @@
+int maximumPath(int N, vector<vector<int>> matrix)
+    {
+        int n=matrix.size(),m=matrix[0].size();
+        for(int i=n-2;i>=0;i--){
+            for(int j=m-1;j>=0;j--){
+                int x=matrix[i+1][j];
+                int y=j-1>=0?matrix[i+1][j-1]:0;
+                int z=j+1<m?matrix[i+1][j+1]:0;
+                matrix[i][j]+=max(x,max(y,z));
+                }
+        }
+        int mx=-1;
+        for(int i=0;i<m;i++){
+            mx=max(mx,matrix[0][i]);
+        }
+        return mx;
+   }
