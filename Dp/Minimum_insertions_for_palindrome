@@ -11,7 +11,7 @@
         return s.length()-x;
     }
 };
--------------------------------------------------------------------------
+------------------------------------------------------------------------------
 //Memoized-O(n*n)
  int dp[501][501];
     int lcs(string &a,string &b,int m,int n){
@@ -27,7 +27,7 @@
         int x=lcs(p,s,s.length(),s.length());
         return s.length()-x;
     }
-    -------------------------------------------------------------------------
+------------------------------------------------------------------------------
     //Tabulated-O(n*n)
     int lcs(string &a,string &b,int m,int n){
         if(n<=0||m<=0)return 0;
@@ -46,5 +46,27 @@
         reverse(s.begin(),s.end());
         int x=lcs(p,s,s.length(),s.length());
         return s.length()-x;
-    } 
+    }
+-------------------------------------------------------------------------------
+  //Space optimsed.O(n*n),O(n).
+  int lcs(string &a,string &b,int n,int m){
+      int dp[m+1];
+      memset(dp,0,sizeof(dp));
+      for(int i=1;i<=n;i++){
+          int prev=0;
+          for(int j=1;j<=m;j++){
+              int x=dp[j];
+            if(a[i-1]==b[j-1])dp[j]=prev+1;
+            else dp[j]=max(dp[j],dp[j-1]);
+            prev=x;
+          }
+      }
+      return dp[m];
+  }
+    int countMin(string str){
+        string b=str;
+        reverse(b.begin(),b.end());
+    int x=lcs(str,b,b.length(),b.length());
+    return b.length()-x;
+    }
     
