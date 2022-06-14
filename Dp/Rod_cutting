@@ -48,20 +48,19 @@ int dp[1001][1001];
     }
     -------------------------------------------------------------------------
  //1-d dp-O(n*n),O(n)
-class Solution{
-  public:
+  vector<int>dp;
+  int answer(int price[],int i,int j){
+      if(i>=j)return 0;
+      int mx=0;
+      if(dp[i]!=-1)return dp[i];
+      for(int k=i+1;k<=j;k++){
+          mx=max(mx,price[k-i-1]+answer(price,k,j));
+      }
+      return dp[i]=mx;
+  }
     int cutRod(int price[], int n) {
         if(n<=0)return 0;
-  int dp[n+1];
-        for(int i=0;i<=n;i++){
-            for(int j=0;j<=n;j++){
-                if(i==0||j==0){dp[j]=0;continue;}
-                if(j>=i){
-                    dp[j]=max(dp[j],price[i-1]+dp[j-i]);
-                }
-            }
-        }
-        return dp[n];
-    }
-};
+        dp=vector<int>(n+1,-1);
+        return answer(price,0,n);}
+
 --------------------------------------------------------------------------
