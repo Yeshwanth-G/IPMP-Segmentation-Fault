@@ -7,6 +7,7 @@ bool dfs(vector<int>adj[],vector<int>&v,int s,vector<int>&helper){
             if(v[adj[s][i]]==false){
                 if(dfs(adj,v,adj[s][i],helper))return true;
             }
+	    else
             if(helper[adj[s][i]]==true)return true;
         }
         helper[s]=false;
@@ -19,6 +20,33 @@ bool dfs(vector<int>adj[],vector<int>&v,int s,vector<int>&helper){
         if(dfs(adj,visited,i,helper))return true;
         }
         }
+        return false;
+    }
+----------------------------------------------------------------------------------------------------
+ //Iterative
+ bool isCyclic(int V, vector<int> adj[]) {
+	   vector<int>visited(V,false),rec(V,false);
+	   stack<int>st;
+	   for(int i=0;i<V;i++){
+	   if(visited[i]==false)
+	   st.push(i);
+	   while(!st.empty()){
+	       int x=st.top();
+	       if(visited[x]==true){
+	           st.pop();
+	           rec[x]=false;
+	       }
+	       else{
+	           visited[x]=true;
+	           rec[x]=true;
+	       }
+	       for(int i=0;i<adj[x].size();i++){
+	           int p=adj[x][i];
+	           if(visited[p]==false){st.push(p);rec[p]=true;}
+	           else if(rec[p]==true)return true;
+	       }
+        }
+	   }
         return false;
     }
 ----------------------------------------------------------------------------------------------------
