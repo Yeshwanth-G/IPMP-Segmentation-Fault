@@ -29,3 +29,41 @@
         }
         return c;
     }
+---------------------------------------------------------------------------------------------------------------------------------------------------
+//Using Union Find
+int find_par(int x,vector<int>&parent){
+    if(parent[x]==x)return x;
+    return parent[x]=find_par(parent[x],parent);
+}
+void unionn(int a,int b,vector<int>&parent,vector<int>&rank){
+int pa=find_par(a,parent);
+int pb=find_par(b,parent);
+if(pa!=pb){
+    if(rank[pa]<rank[pb]){
+        parent[pa]=pb;
+    }
+    else if(rank[pb]<rank[pa]){
+        parent[pb]=pa;
+    }
+    else{
+        parent[pb]=pa;
+    }
+}
+}
+int solve(vector<vector<int>>& friends) {
+    int n=friends.size();
+    vector<int>visited(friends.size(),false);
+    vector<int>parent(n);
+    for(int i=0;i<n;i++)parent[i]=i;
+    vector<int>rank(n,0);
+    for(int i=0;i<friends.size();i++){
+        for(int j=0;j<friends[i].size();j++){
+            unionn(i,friends[i][j],parent,rank);
+        }
+    }
+    int c=0;
+    for(int i=0;i<n;i++){
+        if(parent[i]==i)c++;
+    }
+    return c;
+}
