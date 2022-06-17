@@ -1,0 +1,21 @@
+vector<int> inOrder(Node* root) {
+       Node*current=root;
+       stack<Node*>stk;
+       vector<int>v;
+       if(root)stk.push(root);
+       while(!stk.empty()||current!=nullptr){
+           if(current){
+               current=current->left;
+               if(current)stk.push(current);
+           }
+           else if(!current){
+               Node*p=stk.top();
+               v.push_back(stk.top()->data);
+               stk.pop();
+               if(p->right){
+               stk.push(p->right);
+               current=p->right;}
+           }
+       }
+       return v;
+    }
