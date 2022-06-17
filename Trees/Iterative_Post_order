@@ -1,0 +1,17 @@
+vector <int> postOrder(Node* root)
+{
+  stack<Node*>stk1,stk2;
+  if(root)stk1.push(root);
+  while(!stk1.empty()){
+      Node*p=stk1.top();
+      stk2.push(p);
+      stk1.pop();
+      if(p->left)stk1.push(p->left);
+      if(p->right)stk1.push(p->right);
+  }
+  vector<int>ans;
+  while(!stk2.empty()){
+      ans.push_back(stk2.top()->data);stk2.pop();
+  }
+  return ans;
+}
