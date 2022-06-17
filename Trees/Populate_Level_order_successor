@@ -1,0 +1,46 @@
+class Solution
+{
+    public:
+    #define null nullptr
+    void connect(Node *root)
+    {
+       Node*current=root;
+       current->nextRight=null;
+       while(current){
+           Node*prev=null;
+           Node*p=null;
+           while(current){
+               if(current->left==nullptr&&current->right==nullptr){
+                   current=current->nextRight;
+                   continue;
+               }
+               if(prev){
+                   if(current->left){
+                       prev->nextRight=current->left;
+                       prev=current->left;
+                   }
+                   else if(current->right){
+                       prev->nextRight=current->right;
+                       prev=current->right;
+                   }
+               }
+               if(current->right){
+                if(current->left){
+                    current->left->nextRight=current->right;
+                    if(!p)p=current->left;
+                }
+                if(!p)p=current->right;
+                prev=current->right;
+               }
+               else{
+                   prev=current->left;
+                   if(!p)p=current->left;
+               }
+               current=current->nextRight;
+           }
+           if(prev)prev->nextRight=nullptr;
+           current=p;
+       }
+    }    
+      
+};
