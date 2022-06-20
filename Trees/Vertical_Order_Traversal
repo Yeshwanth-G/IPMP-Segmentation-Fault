@@ -1,0 +1,22 @@
+void answer(TreeNode*root,int hr,map<int,vector<int>>&mp){
+    if(!root)return;
+    queue<pair<TreeNode*,int>>q;
+    q.push({root,0});
+    while(!q.empty()){
+        pair<TreeNode*,int>p=q.front();
+        q.pop();
+        mp[p.second].push_back(p.first->val);
+        TreeNode*k=p.first;
+        if(k->left)q.push({k->left,p.second-1});
+        if(k->right)q.push({k->right,p.second+1});
+    }
+}
+vector<vector<int> > Solution::verticalOrderTraversal(TreeNode* A) {
+    map<int,vector<int>>hmap;
+    answer(A,0,hmap);
+    vector<vector<int>>v;
+    for(auto it:hmap){
+        v.push_back(it.second);
+    }
+    return v;
+}
