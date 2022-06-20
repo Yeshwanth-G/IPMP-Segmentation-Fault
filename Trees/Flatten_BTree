@@ -1,0 +1,32 @@
+//Recursive
+void answer(TreeNode*root,TreeNode*&prev){
+    if(root==NULL)return ;
+    answer(root->right,prev);
+    answer(root->left,prev);
+        root->right=prev;
+        root->left=NULL;
+        prev=root;
+}
+TreeNode* Solution::flatten(TreeNode* A) {
+    TreeNode*prev=NULL;
+    answer(A,prev);
+    return prev;
+}
+
+------------------------------------------------------------
+//Iterative-O(n),O(1)
+TreeNode* Solution::flatten(TreeNode* A) {
+    TreeNode*cur=A;
+    while(cur){
+        if(cur->left){
+            TreeNode*p=cur->left;
+            while(p->right)p=p->right;
+            p->right=cur->right;
+            cur->right=cur->left;
+            cur->left=NULL;
+        }
+        cur=cur->right;
+    }
+    return A;
+}
+----------------------------------------------------------
