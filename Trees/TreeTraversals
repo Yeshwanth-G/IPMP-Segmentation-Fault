@@ -71,6 +71,92 @@ public:
     }
     
 };//O(n),O(h)or O(logn);
-Note:In space complexity vector is not counted;
+------------------------------------------------------------------------------------------------------------
+Morris Inorder:
+//push the node when we second time see it.
+vector<int> inorderTraversal(TreeNode* root) {
+       TreeNode*cur=root;
+        vector<int>v;
+        while(cur!=nullptr){
+        if(cur->left==nullptr){
+            v.push_back(cur->val);
+            cur=cur->right;
+        }
+        else{
+            TreeNode*p=cur->left;
+            while(p->right&&p->right!=cur){
+                p=p->right;
+            }
+            if(!p->right){
+                p->right=cur;
+                cur=cur->left;
+            }
+            else{
+                p->right=nullptr;
+                v.push_back(cur->val);
+                cur=cur->right;
+            }
+        }
+        }
+        return v;
+    }//O(n),O(1)
 
-//Even for recursive space=O(h),time=O(n);;;;;;;
+------------------------------------------------------
+Morris Preorder:
+//same as inorder but push when we first see the node.
+vector<int> preorderTraversal(TreeNode* root) {
+        vector<int>v;
+        TreeNode*cur=root;
+        while(cur){
+            if(cur->left==nullptr){
+                v.push_back(cur->val);
+                cur=cur->right;
+            }
+            else{
+                TreeNode*p=cur->left;
+                while(p->right&&p->right!=cur){
+                    p=p->right;
+                }
+                if(!p->right){
+                    v.push_back(cur->val);
+                    p->right=cur;
+                    cur=cur->left;
+                }
+                else{
+                    p->right=nullptr;
+                    cur=cur->right;
+                }
+            }
+        }
+        return v;
+    }
+-------------------------------------------------
+Morris Postorder:
+//same as prorder but just replace left by right and finally reverse vector.
+vector<int> postorderTraversal(TreeNode* root) {
+        vector<int>v;
+        TreeNode*cur=root;
+        while(cur){
+            if(cur->right==nullptr){
+                v.push_back(cur->val);
+                cur=cur->left;
+            }
+            else{
+                TreeNode*p=cur->right;
+                while(p->left&&p->left!=cur){
+                p=p->left;    
+                }
+                if(!p->left){
+                    v.push_back(cur->val);
+                    p->left=cur;
+                    cur=cur->right;
+                }
+                else{
+                    p->left=nullptr;
+                    cur=cur->left;
+                }
+            }
+        }
+        reverse(v.begin(),v.end());
+        return v;
+    }
