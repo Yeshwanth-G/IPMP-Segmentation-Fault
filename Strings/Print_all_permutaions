@@ -1,0 +1,35 @@
+int find_greater(string &str,int s,int e,char c){
+	    int ans;
+	    while(s<=e){
+	        int mid=(s+e)/2;
+	        if(str[mid]>c){
+	            ans=mid;
+	            s=mid+1;
+	        }
+	        else{
+	           e=mid-1;
+	        }
+	    }
+	    return ans;
+	}
+	bool nextpermutation(string& s){
+	    int n=s.length();
+	    for(int i=n-1;i>0;i--){
+	        if(s[i-1]<s[i]){
+	            int idx=find_greater(s,i,s.length()-1,s[i-1]);
+	            swap(s[i-1],s[idx]);
+	            reverse(s.begin()+i,s.end());
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+		vector<string>find_permutation(string s)
+		{
+		   sort(s.begin(),s.end());
+		   vector<string>v;
+		   do{
+		       v.push_back(s);
+		   }while(nextpermutation(s));
+		   return v;
+		}
