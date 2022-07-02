@@ -1,0 +1,7 @@
+//Binary search
+- based on mid and key modifying range.
+- lower_bound,upper_bound;
+- no. of elemnts lesser than on equal to given number.
+- Binary Search on answer
+- Can this be answer?
+- This could be answer but we may get optimal when moved right/left.(mediann of two sorted array question)
