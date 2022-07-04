@@ -27,3 +27,6 @@ int majorityElement(int a[], int n)
         return -1;
         
     }
+-----------------------------------------------------------------------------------------
+generalisation for n/3-two candidates for maj.
+for n/k k candidates for maj. ==> we use a map check if cur is equal to any maj. Elemnt else check size of map<k then insert this one else decrement all count by -1 and erase 0 counts.
