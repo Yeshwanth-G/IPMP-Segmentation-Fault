@@ -1,0 +1,30 @@
+ //array size  n-1 all elements unique and in the range [1,n];
+ 
+ int MissingNumber(vector<int>& array, int n) {
+        //A1:sum-(n*(n+1)/2)
+        int cs=(n*(n+1))/2;
+        for(int i=0;i<n-1;i++){
+            cs-=array[i];
+        }
+        // return cs;
+        //A2:xor
+        int xr=0;
+        for(int i=0;i<n;i++){
+            if(i<n-1)
+            xr=(xr^array[i]);
+            xr=(xr^(i+1));
+        }
+        // return xr;
+        
+        //A3:maintaing a visited array,
+        //A4:marking presence
+        for(int i=0;i<n-1;i++){
+            int ind=(abs(array[i]))-1;
+            if(ind<n-1&&array[ind]>0)array[ind]*=(-1);
+        }
+        int ans=n;
+        for(int i=0;i<n-1;i++){
+            if(array[i]>=0)ans=i+1;
+        }
+        return ans;
+    }
