@@ -1,3 +1,7 @@
+//O(n),O(n)
+A1:freq map;
+A2:sort and find-O(nlogn),O(1)
+A3:xorring...
 vector<int> singleNumber(vector<int> nums) 
     {
         // Code here.
