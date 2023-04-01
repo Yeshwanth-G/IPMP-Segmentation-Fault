@@ -13,4 +13,19 @@
 	        else j--;
 	    }
 	    return false;
-	}
+	}//O(n),O(1) if sorted else O(nlogn)
+---------------------
+class Solution{
+    public:
+    //Function to find if there exists a triplet in the 
+    //array A[] which sums up to X.
+int twosum(int a[],int p,int n,int x){
+  unordered_map<int,int>mp;
+  for(int i=p+1;i<n;i++){
+      if(mp.find(x-a[i])!=mp.end())return 1;
+      mp[a[i]]++;
+  }
+  return 0;
+}
+
+};//O(n),O(n)-sorted or not does not need
