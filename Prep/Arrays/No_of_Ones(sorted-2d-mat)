@@ -1,0 +1,21 @@
+int minRow(int n, int m, vector<vector<int>> A) {
+        // code here
+        int ans=0;
+        for(int i=0;i<n;i++){
+            int ind=(lower_bound(A[i].begin(),A[i].end(),1)-A[i].begin());
+            ind=(m-ind);
+            ans=max(ans,ind);
+        }
+        //O(nlogm)
+        // -----------------
+        int i=0,j=m-1;
+        while(i<n&&j>=0){
+            while(i<n&&A[i][j]==0)i++;
+            while(j>=0&&i<n){
+                j--;
+            }
+            ans=max(ans,(m-1-j));
+        }
+        return ans;
+    }
+    //O(n+m)...
