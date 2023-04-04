@@ -1,0 +1,30 @@
+//Order need to be maintained then....use extra space to store first occurence of each element....********
+
+	cin>>ts;
+	while(ts--){
+        unordered_map<int,int>hmap;
+	    int n;
+	    cin>>n;
+	    vector<int>v(n);
+	    for(int i=0;i<n;i++){
+	        cin>>v[i];
+	        hmap[v[i]]++;
+	    }
+	    sort(v.begin(),v.end(),[&hmap,v](int a,int b){
+      //[=],[&],[a,&b],[a,b,c]
+      //[a,b]->pass by value read only...
+      //[&a,&b]->pass by refernce write permit
+      //[=] all elemts in func() can be accessed inside sort by pass by value...
+      //[&] all elements pass by address....
+      
+	    if(hmap[a]>hmap[b])return true;
+        else if(hmap[a]==hmap[b])return a<b;
+         else return false;
+	     }
+	    );
+	    for(int i:v){
+	        cout<<i<<" ";
+	    }
+	    cout<<endl;
+	}
+	return 0;
