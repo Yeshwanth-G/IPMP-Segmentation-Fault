@@ -1,0 +1,33 @@
+ //Function to modify the matrix such that if a matrix cell matrix[i][j]
+    //is 1 then all the cells in its ith row and jth column will become 1.
+    void booleanMatrix(vector<vector<int> > &matrix)
+    {
+        int n=matrix.size(),m=matrix[0].size(),rf=0,cf=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(matrix[i][j]==0)continue;
+                if(i==0||j==0){
+                    if(i==0)rf=1;
+                    if(j==0)cf=1;
+                }else{
+                    matrix[i][0]=1;
+                    matrix[0][j]=1;
+                }
+            }
+        }
+        for(int i=1;i<n;i++){
+            for(int j=1;j<m;j++){
+                if(matrix[i][0]==1||matrix[0][j]==1)matrix[i][j]=1;
+            }
+        }
+        for(int i=0;i<n;i++){
+            if(cf==1)matrix[i][0]=1;
+        }
+        for(int j=0;j<m;j++){
+            if(rf==1)matrix[0][j]=1;
+        }
+    }
+   //Using O(1),O(n*m)
+   ----------------------------------------------------------------------
+   brute force-set all row,col elements that are not eqaul to 1 as -1,
+   at last iterate and set -1 as 1;
