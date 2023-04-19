@@ -1,0 +1,18 @@
+int maxRepeating(int *arr, int n, int k) {
+//elements between 0 to k-1;
+for(int i=0;i<n;i++){
+	        arr[arr[i]%k]+=k;
+	    }
+	    int mxc=0,ind=-1;
+	    for(int i=0;i<n;i++){
+	       if((arr[i]/k)>mxc){
+	           ind=i;
+	           mxc=arr[i]/k;
+	       }
+	    }
+	    return ind;
+	}
+  //maring presence-(to check if present-(-ve,+ve)),for frequency arr[arr[i]%k]+=k;
+  //sometimes we can eliminate other numbers******(out of range numbers...)
+  -----------------------------------------
+  
