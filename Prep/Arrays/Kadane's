@@ -1,0 +1,23 @@
+int maxSubarraySumCircular(vector<int>& nums) {
+        int cs=0,mxs=0,ts=0,n=nums.size(),mx1=-1e9;
+        for(int i=0;i<n;i++){
+            cs+=nums[i];
+            mxs=max(mxs,cs);
+            mx1=max(mx1,nums[i]);
+            if(cs<0)cs=0;
+            ts+=nums[i];
+        }
+        int ms=0;
+        cs=0;
+        for(int i=0;i<n;i++){
+            cs+=(-nums[i]);
+            ms=max(ms,cs);
+            if(cs<0)cs=0;
+        }
+        if(mx1<0)return mx1;
+        return max(mxs,ts+ms);
+    }//
+    ----------------------------------
+    maximum sum subarray print
+    minimum sum subarray
+    maximum rotated subarray......max(mxs,ts-ms);
