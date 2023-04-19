@@ -1,0 +1,39 @@
+int merge(vector<int>&nums,int s1,int e1,int s2,int e2){
+    vector<int>b=nums;
+    int k=s1;
+    int inv=0;
+    while(s1<=e1&&s2<=e2){
+        if(nums[s1]<=nums[s2]){
+            b[k++]=nums[s1];
+            s1++;
+        }else{
+            inv+=(e1-s1)+1;
+            b[k++]=nums[s2];
+            s2++;
+        }
+    }
+    while(s1<=e1){
+        b[k++]=nums[s1++];
+    }
+    while(s2<=e2){
+        b[k++]=nums[s2++];
+    }
+    nums=b;
+    return inv;
+}
+int mergesort(vector<int>&nums,int st,int e){
+    int inv=0;
+    if(st<e){
+        int p;
+        int mid=(st+e)/2;
+        inv+=mergesort(nums,st,mid);
+        inv+=mergesort(nums,mid+1,e);
+        inv+=merge(nums,st,mid,mid+1,e);
+    }
+    return inv;
+}
+int countinv(vector<int>&ans){
+    int inv=0;
+    inv=mergesort(ans,0,ans.size()-1);
+    return inv;
+}
