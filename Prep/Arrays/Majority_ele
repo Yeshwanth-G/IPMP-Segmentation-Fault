@@ -1,0 +1,53 @@
+int majorityElement(int v[], int n)//freq>(n/2)
+    {
+        int vt=0,mj=0;
+        for(int i=0;i<n;i++){
+            if(vt==0){
+                mj=v[i];
+                vt=0;
+            }
+            if(v[i]==mj)vt++;
+            else vt--;
+        }
+        int f=0;
+        for(int i=0;i<n;i++){
+            if(v[i]==mj)f++;
+        }
+        if(f>(n/2))return mj;
+        return -1;
+    }
+ ---------moore's voting algo-----------------O(n),O(1)
+ ------------------------------------------------------------------------------------
+ class Solution {
+public:
+    vector<int> majorityElement(vector<int>& v) {
+        int mj1=0,mj2=-1,vt1=0,vt2=0,n=v.size();
+        vector<int>ans;
+        for(int i=0;i<n;i++){
+          if(vt1==0&&v[i]!=mj2){
+              mj1=v[i];
+              vt1=1;
+          }else if(vt2==0&&v[i]!=mj1){
+              mj2=v[i];
+              vt2=1;
+          }else if(v[i]==mj1)vt1++;
+            else if(v[i]==mj2)vt2++;
+            else{
+                vt1--;
+                vt2--;
+            }
+        }
+        int f1=0,f2=0;
+        for(int i:v){
+            if(i==mj1)f1++;
+            if(i==mj2)f2++;
+        }
+        if(f1>(n/3))ans.push_back(mj1);
+        if(f2>(n/3)&&mj1!=mj2)ans.push_back(mj2);
+        return ans;
+    }
+};
+------------------------------------------------------------------------------------
+Generalisation for n/k--
+we use a map check if cur is equal to any majority. 
+Element else check size of map<k then insert this one else decrement all count by -1 and erase 0 counts) also
