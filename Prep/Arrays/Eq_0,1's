@@ -1,0 +1,17 @@
+int maxLen(int a[], int n)
+    {
+        map<int,int>hmap;
+        int sum=0,ans=0;
+        for(int i=0;i<n;i++){
+            if(a[i]==0)sum+=-1;
+            else sum++;
+            if(sum==0)ans=max(ans,i+1);
+            if(hmap.find(sum)==hmap.end())
+            hmap[sum]=i;
+            else{
+                int ind=hmap[sum];
+                ans=max(ans,i-hmap[sum]);
+            }
+        }
+        return ans;
+    }//largest subarray with sum 0;
