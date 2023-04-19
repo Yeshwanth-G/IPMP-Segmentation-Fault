@@ -1,0 +1,20 @@
+	int bitonic(vector<int> arr, int n) {
+	   int st=0,i=0,ans=0;
+	   while(i>=0&&i<n){
+	       while(i+1<n&&arr[i]<=arr[i+1]){
+	           i++;
+	       }
+	       int nst=-1;
+	       while(i+1<n&&arr[i+1]<=arr[i]){
+	           if(arr[i+1]!=arr[i])nst=i+1;
+	           i++;
+	           
+	       }
+	       ans=max(ans,i-st+1);
+	       i=nst;
+	       st=i;
+	   }
+	   return ans;
+}//O(n),O(1)
+-----------------------------------------------------------------------------------
+normal o(n),O(n)-maintain increasing,decreasing length and max(inc+dec-1) is ans.
