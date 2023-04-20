@@ -1,0 +1,42 @@
+ ans+=h[i]-min(lmax,rmax)//
+ 
+ int trap(vector<int>& a) {
+        int n=a.size();
+        vector<int>maxr(n);
+        maxr[n-1]=a[n-1];
+        int mxs=a[0],ans=0;
+        for(int i=n-2;i>=0;i--){
+            if(a[i]>maxr[i+1])maxr[i]=a[i];
+            else maxr[i]=maxr[i+1];
+        }
+        for(int i=1;i<n;i++){
+            if(a[i]>mxs)mxs=a[i];
+            int d=min(mxs,maxr[i])-a[i];
+            ans+=d;
+        }
+        return ans;
+    }
+    --O(n),O(n)
+    --------------------------------------------------
+    -O(n),O(1)
+    class Solution {
+public:
+    int trap(vector<int>& h) {
+        //O(n),O(1)
+        int n=h.size(),ans=0;
+        int i=0,j=n-1;
+        int lmax=h[0],rmax=h.back();
+        while(i<=j){
+            lmax=max(lmax,h[i]);
+            rmax=max(rmax,h[j]);
+            if(lmax<rmax){
+                ans+=abs(h[i]-lmax);
+                i++;
+            }else if(lmax>=rmax){
+                ans+=abs(h[j]-rmax);
+                j--;
+            }
+        }
+        return ans;
+    }
+};
