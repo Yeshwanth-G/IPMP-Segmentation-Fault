@@ -1,0 +1,71 @@
+//no dp
+//go till price increases and sell at highest point
+and buy at lowest point..
+class Solution {
+public:
+    int maxProfit(vector<int>& price) {
+        int ans=0;
+        int i=0,n=price.size();
+        while(i+1<n){
+            int bi=i;
+            while(i+1<n&&price[i+1]>=price[i]){
+                i++;
+            }
+            int si=i;
+            if(bi<n&&si<n)
+            ans+=abs(price[bi]-price[si]);
+            while(i+1<n&&price[i+1]<=price[i])i++;
+        }
+        return ans;
+    }
+};//O(n),O(1)
+
+-----------------------------------------------------------------------------
+//dp solutions
+at each day 2 options buy/sell 
+class Solution {
+public:
+    int dp[30001][2];
+    int answer(int ind,vector<int>&prices,int n,bool has_stock){
+        if(ind>=n)return 0;
+        if(dp[ind][has_stock]!=-1)return dp[ind][has_stock];
+        if(has_stock){
+            return dp[ind][has_stock]=max(prices[ind]+answer(ind+1,prices,n,false),answer(ind+1,prices,n,has_stock));
+        }else{
+            return dp[ind][has_stock]=max(-prices[ind]+answer(ind+1,prices,n,true),answer(ind+1,prices,n,has_stock));
+        }
+        return 0;
+    }
+    int maxProfit(vector<int>& price) {
+        memset(dp,-1,sizeof(dp));
+        return answer(0,price,price.size(),false);
+    }
+};
+-------------------------------------------------------------------
+iterative
+int maxProfit(vector<int>& price) {
+        int n=price.size();
+        int dp[n+1][2];
+        memset(dp,0,sizeof(dp));
+        for(int i=n-1;i>=0;i--){
+            int ind=i;
+            dp[ind][true]=max(price[ind]+dp[ind+1][false],dp[ind+1][true]);
+            dp[ind][false]=max(-price[ind]+dp[ind+1][true],dp[ind+1][false]);
+        }
+        return dp[0][false];
+    }
+-----------------------------------------------------------------------------------------------
+//space optimised..
+int maxProfit(vector<int>& price) {
+        int n=price.size();
+        int tv=0,fv=0;
+        for(int i=n-1;i>=0;i--){
+            int ind=i;
+            int t,f;
+            t=max(price[ind]+fv,tv);
+            f=max(-price[ind]+tv,fv);
+            tv=t;
+            fv=f;
+        }
+        return fv;
+    }
