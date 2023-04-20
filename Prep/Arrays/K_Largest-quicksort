@@ -1,0 +1,61 @@
+int partition(int arr[],int st,int e){
+        //O(n*n),bestcase(O(1))
+	   //O(1) space
+     
+        if(st>=e)return st;
+        int pivot=arr[st];
+        int i=st+1,j=e;
+        while(i<=j){
+            while(i<=j&&arr[i]>=pivot)i++;
+            while(i<=j&&arr[j]<=pivot)j--;
+            if(i<j){
+                swap(arr[i],arr[j]);
+                i++;
+                j--;
+            }
+        }
+        swap(arr[st],arr[j]);
+        return j;
+    }
+	vector<int> kLargest(int arr[], int n, int k) {
+	    int x=-1,st=0,e=n-1;
+	   while(st<=e){
+	       x=partition(arr,st,e);
+	       if(x==k-1)break;
+	       else if(x<k-1){
+	           st=x+1;
+	       }else if(x>k-1){
+	           e=x-1;
+	       }
+	   }
+	   vector<int>ans;
+	   for(int i=0;i<k;i++){
+	       ans.push_back(arr[i]);
+	   }
+	   sort(ans.begin(),ans.end(),[](int a,int b){
+	       return a>b;
+	   });
+	   return ans;
+	}
+  
+  ---------------------------------------------------------------------------------------------------------
+  //User function template for C++
+class Solution{
+public:	
+	vector<int> kLargest(int arr[], int n, int k) {
+	   priority_queue<int,vector<int>,greater<int>>pq;//gives min when popped-min heap
+	   //priority_queue<int>pq;-max when popped,max heap.
+	   for(int i=0;i<n;i++){
+	       pq.push(arr[i]);
+	       if(pq.size()>k)pq.pop();
+	   }
+	   vector<int>ans;
+	   while(pq.empty()==false){
+	       ans.push_back(pq.top());
+	       pq.pop();
+	   }
+	   reverse(ans.begin(),ans.end());
+	   return ans;
+	}
+
+};
