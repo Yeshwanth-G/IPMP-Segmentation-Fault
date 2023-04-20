@@ -1,0 +1,32 @@
+//traverse via next pointers...
+Node* connect(Node* root) {
+        Node*cur=root,*fs=nullptr,*prev=nullptr;
+        if(root==nullptr)return root;
+        root->next=nullptr;
+        while(cur){
+            Node*p=cur;
+            fs=nullptr;
+            prev=nullptr;
+            while(p){
+            if(p->left){
+                if(!fs){fs=p->left;prev=fs;}
+                else{
+                    prev->next=p->left;
+                    prev=p->left;
+                }
+            }
+            if(p->right){
+                if(!fs){fs=cur->right;prev=fs;}
+                else{
+                    prev->next=p->right;
+                    prev=p->right;
+                }
+            }
+            p=p->next;
+            }
+            if(prev)
+            prev->next=nullptr;
+            cur=fs;
+        }
+        return root;
+    }
