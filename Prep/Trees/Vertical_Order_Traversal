@@ -1,0 +1,26 @@
+//just store (x,y) co-ordinates for each node and sort them accordingly...
+//nodes with same co-ordinates order by their values...
+
+void answer(TreeNode*root,vector<vector<int>>&ans,int x,int y){
+        if(!root)return;
+        ans.push_back({x,y,root->val});
+        answer(root->left,ans,x-1,y+1);
+        answer(root->right,ans,x+1,y+1);
+    }
+    vector<vector<int>> verticalTraversal(TreeNode* root) {
+     vector<vector<int>>ans;
+     answer(root,ans,0,0);   
+     sort(ans.begin(),ans.end());
+     vector<vector<int>>v;
+     for(int i=0;i<ans.size();i++){
+         vector<int>p;
+         int x=ans[i][0];
+         while(i<ans.size()&&x==ans[i][0]){
+             p.push_back(ans[i][2]);
+             i++;
+         }
+         if(i<ans.size())i--;
+         v.push_back(p);
+     }
+     return v;
+}
