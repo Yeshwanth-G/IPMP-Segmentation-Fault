@@ -1,0 +1,14 @@
+pair<int,int> answer(TreeNode*root){
+        if(!root) return {0,0};
+        pair<int,int>l=answer(root->left);
+        pair<int,int>r=answer(root->right);
+        pair<int,int>p;
+        p.first=max(l.first,r.first)+1;
+        p.second=max({l.first+r.first,l.second,r.second});
+        return p;
+    }
+    int diameterOfBinaryTree(TreeNode* root) {
+        return answer(root).second;
+    }
+    //at every node 2 possiblities either pass through node-(lh+rh+1);
+    else max(l_ans,r_ans);
