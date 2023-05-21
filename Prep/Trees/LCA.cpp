@@ -45,3 +45,18 @@ TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
         if(!l)return r;
         return l;
 }//O(n),O(1)==>O(n)(recursion stack);
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+ ***LCA for bst***
+Node* LCA(Node *root, int n1, int n2)
+{
+   Node*cur=root;
+   while(cur){
+       if(cur->data==n1||cur->data==n2)return cur;
+       if(cur->data>min(n1,n2)&&cur->data<max(n1,n2))return cur;
+       if(max(n1,n2)<cur->data)cur=cur->left;
+       else cur=cur->right;
+   }
+   return nullptr;
+}
