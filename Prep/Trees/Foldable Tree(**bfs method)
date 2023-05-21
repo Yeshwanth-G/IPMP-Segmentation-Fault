@@ -1,0 +1,38 @@
+- dfs simple check whether right and left are mirrot to each other
+
+bool mirror(Node*p,Node*q){
+    if(p==nullptr&&q==nullptr)return true;
+    if(p==nullptr||q==nullptr)return false;
+   return mirror(p->left,q->right)&&mirror(p->right,q->left);
+}
+bool IsFoldable(Node* root)
+{
+    if(!root)return true;
+   return mirror(root->left,root->right);
+}
+--------
+****bfs
+bool IsFoldable(Node* root)
+{
+   queue<Node*>q;
+   if(!root)return true;
+   q.push(root->left);
+   q.push(root->right);
+   while(!q.empty()){
+       Node*p=q.front();
+       q.pop();
+       Node*x=q.front();
+       q.pop();
+       if(x==nullptr&&p==nullptr)continue;
+       else if(x==nullptr||p==nullptr)return false;
+       q.push(p->left);
+       q.push(x->right);
+       q.push(p->right);
+       q.push(x->left);
+   }
+   return true;
+}
+-------------------------------------------------------------------
+To mirror a tree exchange its left and right noeds and mirror(left),mirror(right)
+
+------------------
