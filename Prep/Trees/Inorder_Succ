@@ -1,0 +1,37 @@
+//find inorder successor og given node x
+//inorder successsor can be leftmost of right subtree if right subtree exsits else it will be one of the ancestors(in the path from root to x)
+//TC:O(h),space:O(1)
+Node * inOrderSuccessor(Node *root, Node *x)
+    {
+        Node*cur=root;
+        if(x->right!=nullptr){
+            cur=x->right;
+            while(cur->left)cur=cur->left;
+            return cur;
+        }else{
+            Node*ans=nullptr;
+            while(cur&&(cur!=x)){
+                if(cur->data>x->data){
+                    ans=cur;
+                    cur=cur->left;
+                }else cur=cur->right;
+            }
+            return ans;
+        }
+    }
+    -----------------
+    combining both cases;
+
+    Node * inOrderSuccessor(Node *root, Node *x)
+    {
+        if(root==nullptr)return nullptr;
+        Node*current=root,*p=nullptr;
+        while(current){
+            if(current->data>x->data){
+                p=current;
+                current=current->left;
+            }
+            else current=current->right;
+        }
+        return p;
+    }
