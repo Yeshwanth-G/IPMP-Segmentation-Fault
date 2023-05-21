@@ -1,0 +1,51 @@
+3 Approaches
+BST def: A binary tree with left should be bst,right show be bst,all left nodes less than root and all right nodes more than bst
+        A null and leaf nodes are bsts
+        inorder is sorted
+A-1:
+Get lmax,lmin,rmax,rmin and compare with root
+
+A-2:
+Have range for max,min and check if node lies in that range and onmmoving left range (min,root->data-1) and right becomes (root->data+1,mx);
+
+A-3:
+Inorder should be sorted.....
+
+ //Function to check whether a Binary Tree is BST or not.
+    pair<int,int> answer(Node*root,bool &bl){// A-1
+        if(root==nullptr)return {1e9,-1e9};
+        pair<int,int>l=answer(root->left,bl);
+        pair<int,int>r=answer(root->right,bl);
+        if(l.second<root->data&&r.first>root->data);
+        else bl=false;
+        pair<int,int>rr;
+        rr.first=min({l.first,r.first,root->data});
+        rr.second=max({l.second,r.second,root->data});
+        return rr;
+    }
+    bool answer1(Node*root,int mn,int mx){ //A-2
+        if(root==nullptr)return true;
+        if(root->data>=mn&&root->data<=mx);
+        else return false;
+        return (answer1(root->left,mn,root->data-1))&&(answer1(root->right,root->data+1,mx));
+    }
+    void inorder(Node*root,vector<int>&ino){ //A-3
+        if(root==nullptr)return;
+        inorder(root->left,ino);
+        ino.push_back(root->data);
+        inorder(root->right,ino);
+    }
+    bool isBST(Node* root) 
+    {
+       bool bl=true;
+       answer(root,bl);
+    //   return bl;
+    vector<int>ino;
+    inorder(root,ino);
+    for(int i=1;i<ino.size();i++){
+        if(ino[i-1]<ino[i]);
+        else return false;
+    }
+    return true;
+       return answer1(root,-1e9,1e9);
+    }
