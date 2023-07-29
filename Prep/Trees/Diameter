@@ -12,3 +12,18 @@ pair<int,int> answer(TreeNode*root){
     }
     //at every node 2 possiblities either pass through node-(lh+rh+1);
     else max(l_ans,r_ans);
+
+
+-------------------------------------------------------------------
+int height(Node*root,int&ans){
+        if(root==nullptr)return 0;
+        int lh=0,rh=0;
+        int ld=height(root->left,lh);
+        int rd=height(root->right,rh);
+        ans=1+max(rh,lh);
+        return max({ld,rd,(lh+rh+1)});
+    }
+int diameter(Node* root) {
+int ans=0;
+return height(root,ans);
+}
