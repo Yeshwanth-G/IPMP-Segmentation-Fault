@@ -11,8 +11,12 @@ Shortest Path:
   -  standard implementation will fail for negative edges and may run into infinte loop for negative cycles.
 - Negative Edges/Cycles
   - Bellmann ford
+  - Relax each edge and do it V - 1 times.
   - O(V^2)
   -  ONLY FOR DIRECTED GRAPHS -> works for negative edges and also helps in detecting negative cycles.
+- Multi Source: Floyd Warshall
+    - O(V^3)
+    - go via each vertex and keep on updating adjacency matrix.
 
 ---------------
 CYCLE DETECTION:
