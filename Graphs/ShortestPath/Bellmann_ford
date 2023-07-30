@@ -1,5 +1,6 @@
-//works for graphs without negative edge cycles
+//works for directed graphs without negative edge cycles
 //and if a undirected graph has negative edges then its treated as negative cycle so it fails there also.
+//To make it work for undirected have separate edges for a->b and b->a
 int isNegativeWeightCycle(int n, vector<vector<int>>edges){
 	    vector<int>dist(n,INT_MAX);
 	    dist[0]=0;
@@ -19,3 +20,22 @@ int isNegativeWeightCycle(int n, vector<vector<int>>edges){
 	        }
 	        return false;
 	}
+
+
+--------------------------------
+--------------------------------
+
+Shortest Path:
+
+DAG - O(V+E) uing Toposort-> get toposort and relax the vertices.
+Unit Edges - BFS=>dir/undir -> O(V+E)
+No negative edges - Dijkstra's - O(V+ElogV) ==> standard implementation will fail for negative edges and may run into infinte loop for negative cycles.
+Negative Edges/Cycles - Bellmann ford - O(V^2) ==> ONKY FOR DIRECTED GRAPHS,-> works for negative edges and also helps in detecting negative cycles.
+
+---------------
+CYCLE DETECTION:
+
+Directed -> dfs with path_visited or Toposort using Khann's.
+Undirected -> dfs/bfs with parent.
+Negative cycle -> Bellann Ford.
+
